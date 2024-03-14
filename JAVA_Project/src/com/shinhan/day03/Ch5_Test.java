@@ -7,10 +7,10 @@ public class Ch5_Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		//q6();
-		//q7();
+		q6();
+		q7();
 		q8();
-		//q9();
+		q9();
 	}
 
 
@@ -23,8 +23,6 @@ public class Ch5_Test {
 		double avg;
 		
 		int[] scores = null;
-		
-		
 		
 		aa :while(true) {
 			System.out.println("------------------------------------");
