@@ -15,7 +15,9 @@ public class NumberSearching {
 
 		word = scanner.nextLine();
 
-		ArrayList<Integer> arraylist = new ArrayList<Integer>();// 입출금 내역을 저장하는 동적 배열
+		ArrayList<Integer> arraylist = new ArrayList<Integer>();// 입력받은 숫자 문자열을 숫자로 바꿔 저장하는 동적 배열
+		ArrayList<String> convert = new ArrayList<String>();// 숫자코드를 기호 기반 문자열로 convert한 결과를 만드는 용도의 동적 배열
+		
 
 		for (int i = 0; i < word.length(); i++) {
 			char c = word.charAt(i);
@@ -26,6 +28,16 @@ public class NumberSearching {
 
 		for (int st : arraylist) {
 			System.out.println(st);
+		}
+		
+		for (int st : arraylist) {
+			if(st==0) {
+				
+			}
+			else if(st==1) {
+				
+			}
+			else if()
 		}
 
 	}
