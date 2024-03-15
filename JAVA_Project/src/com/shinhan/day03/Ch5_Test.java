@@ -78,6 +78,8 @@ public class Ch5_Test {
 			}
 		
 		}
+		
+		scanner.close();
 	}
 
 
@@ -98,6 +100,14 @@ public class Ch5_Test {
 				count++;
 			}
 		}
+		
+//		//확장for문을 사용하는 방법
+//		for(int[] datas:array) {
+//			for(int data:datas) {
+//				total+=data;
+//				count++;
+//			}
+//		}
 		
 		double average=(double)total/(double)count;
 		
