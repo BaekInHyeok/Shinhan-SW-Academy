@@ -42,6 +42,10 @@ public class Ch5_Test {
 				
 			case "2":
 				//System.out.print("점수입력>>");
+				if(scores==null) {
+					System.out.println("학생수 입력 필요");
+					break;
+				}
 				for(int i=0;i<scores.length;i++) {
 					System.out.print("scores["+i+"]>");
 					order=scanner.nextLine();
@@ -51,13 +55,20 @@ public class Ch5_Test {
 				
 				break;
 			case "3":
+				if(scores==null) {
+					System.out.println("데이터 없음");
+					break;
+				}
 				for(int i=0;i<scores.length;i++) {
 					System.out.printf("scores[%d]:%d",i,scores[i]);
 					System.out.println();
 				}
 				break;
 			case "4":
-				
+				if(scores==null) {
+					System.out.println("데이터 없음");
+					break;
+				}
 				for(int i=0;i<scores.length;i++) {
 					sum+=scores[i];
 					
