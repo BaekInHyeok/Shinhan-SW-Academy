@@ -130,5 +130,23 @@ public class Ch5_Test {
 		
 		System.out.println(array.length);
 		System.out.println(array[2].length);
+		
+		//일반형 for문
+		System.out.println("----------일반형 for문----------");
+		for(int i=0;i<array.length;i++) {
+			for(int j=0;j<array[i].length;j++) {
+				System.out.print(array[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
+		//확장형 for문
+		System.out.println("----------확장형 for문----------");
+		for(int[] datas:array) {
+			for(int data:datas) {
+				System.out.print(data+" ");
+			}
+			System.out.println();
+		}
 	}
 }
