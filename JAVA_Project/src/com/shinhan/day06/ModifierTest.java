@@ -1,4 +1,4 @@
-package com.shinhan.day6;
+package com.shinhan.day06;
 
 import com.shinhan.day05.Computer;
 

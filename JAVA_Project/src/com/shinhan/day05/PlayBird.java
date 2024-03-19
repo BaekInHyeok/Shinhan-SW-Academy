@@ -10,6 +10,9 @@ public class PlayBird {
 		duck.setName("꽥꽥이");
 		sparrow.setName("짹짹");
 
+		duck.fly();
+		sparrow.sing();
+		
 		System.out.println(duck.toString());
 		System.out.println(sparrow.toString());
 		

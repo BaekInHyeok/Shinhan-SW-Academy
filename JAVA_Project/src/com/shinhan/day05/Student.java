@@ -2,6 +2,7 @@ package com.shinhan.day05;
 
 public class Student {
 
+	//instance 변수, 객체 생성 시 자동으로 초기화
 	private String name;
 	private int age;
 	private int id;
@@ -35,8 +36,5 @@ public class Student {
 		System.out.printf("이  름 : %s  나 이 : %d  학  번 : %d",this.name,this.age,this.id);
 		System.out.println();
 	}
-	
-	
-	
 	
 }
