@@ -14,4 +14,5 @@ public class Person {
 		double result = compute.calc(su1, su2);
 		System.out.println(result);
 	}
+
 }

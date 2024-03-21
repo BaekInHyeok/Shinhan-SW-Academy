@@ -20,15 +20,14 @@ public class LambdaTest3 {
 		person.action((a, b) -> {
 			System.out.println("2.람다표현식");
 			return a + b;
+			// Person > action >> ComputeInterface > double calc(x,y)->return받는 곳
 		});
 
 		// 이미 만들어진 메서드가 static인 경우 사용할 수 있음
 		person.action(Computer::staticMethod);
 
-		// 이미 만들어진 instance method사용
+		// 이미 만들어진 instance method사용 >> instance는 LambdaTest3에서 재정의가 가능하다.
 		Computer com = new Computer();
 		person.action(com::instanceMethod);
-
 	}
-
 }

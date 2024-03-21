@@ -4,6 +4,8 @@ public class LambdaTest {
 
 	public static void main(String[] args) {
 		// 1.익명
+		//int result = new Calculator().sum(1,2);
+		//요거를 LambdaTest 클래스에서 구현한다.
 		int result = (new Calculator() {
 
 			@Override
@@ -13,6 +15,7 @@ public class LambdaTest {
 				return a + b + 100;
 			}
 		}).sum(1, 2);
+
 		System.out.println(result);
 
 		// 2.람다표현식
