@@ -1,0 +1,2 @@
+Product [model_name=NT450R5E-K24S, price=500000, company=삼성전자]
+Product [model_name=G2-K3T32AV, price=600000, company=HP]

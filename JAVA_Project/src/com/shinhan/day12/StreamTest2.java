@@ -80,9 +80,7 @@ public class StreamTest2 {
 
 		System.out.println(map2);
 
-		Set<String> set2 = data2.stream().collect(Collectors.toSet()).forEach(s -> {
-			System.out.println(s);
-		});
+		Set<Student> set2 = data2.stream().collect(Collectors.toSet());
 	}
 
 	private static void f16() {
