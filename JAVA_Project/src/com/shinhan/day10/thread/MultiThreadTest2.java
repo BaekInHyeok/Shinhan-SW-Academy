@@ -2,7 +2,7 @@ package com.shinhan.day10.thread;
 
 public class MultiThreadTest2 {
 	
-	public static void main3(String[] args) {
+	public static void main(String[] args) {
 		BathRoom room = new BathRoom();
 		BathroomThread t1 = new BathroomThread(room, "김");
 		BathroomThread t2 = new BathroomThread(room, "박");
@@ -14,7 +14,7 @@ public class MultiThreadTest2 {
 		t3.start();
 	}
 
-	public static void main(String[] args) {
+	public static void main3(String[] args) {
 		
 		ShareArea shareArea = new ShareArea(new Account("112","이몽룡",2000), new Account("113","성춘향",1000));
 		Thread t1 = new TransferThread(shareArea);

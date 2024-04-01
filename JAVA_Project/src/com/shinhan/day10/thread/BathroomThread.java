@@ -5,7 +5,7 @@ public class BathroomThread extends Thread {
 	BathRoom room;
 	String name;
 
-	BathroomThread(BathRoom room, String name) {
+	public BathroomThread(BathRoom room, String name) {
 		this.room = room;
 		this.name = name;
 	}

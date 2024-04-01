@@ -9,11 +9,11 @@ public class Account {
 	String ownerName;
 	int balance = 0;
 
-	void deposit(int amount) {
+	public void deposit(int amount) {
 		balance += amount;
 	}
 
-	int withdraw(int amount) {
+	public int withdraw(int amount) {
 		if (balance >= amount) {
 			balance -= amount;
 			return amount;
@@ -23,4 +23,18 @@ public class Account {
 			return 0;
 		}
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Account [accuntNo=").append(accuntNo).append(", ownerName=").append(ownerName)
+				.append(", balance=").append(balance).append("]");
+		return builder.toString();
+	}
+
+	public Account() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }
