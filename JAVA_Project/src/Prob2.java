@@ -6,6 +6,15 @@ public class Prob2 {
 		System.out.println(leftPad("Multicampus", 5, '@'));
 
 	}
+	
+	public static String leftPad2(String str, int size, char fillChar) {
+		int fillCharNum = size-str.length();
+		try {
+			
+		}catch(IllegalAccessException e) {
+			result=aa.getmessage;
+		}
+	}
 
 	public static String leftPad(String str, int size, char fillChar) {
 		// String[] array = new String[size];
@@ -41,15 +50,11 @@ public class Prob2 {
 }
 
 //구현하시오.
-class IllegalSizeException {
+class IllegalSizeException extends RuntimeException {
 
-	String s = "문자열의 길이보다 size가 큽니다.";
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append(s);
-		return builder.toString();
+	public IllegalSizeException(){
+		super();
+		String s = "문자여르이 길이보다 size가 큽니다.";
 	}
 
 }
