@@ -1,6 +1,7 @@
 package com.shinhan.day15;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,30 +15,99 @@ public class EmpDAO {
 
 	Connection conn;
 	Statement st;
+	PreparedStatement pst;//Statement를 상속받음, 바인딩 변수 지원
 	ResultSet rs;
 
-	// 직원 전체 조회
+	// 1.직원 전체 조회
 	public List<EmpDTO> selectAll() {
 		List<EmpDTO> emplist = new ArrayList<EmpDTO>();
 		String sql = "select * from employees";
-		
+
 		try {
 			conn = DBUtil.dbConnection();
 			st = conn.createStatement();
-			rs=st.executeQuery(sql);
+			rs = st.executeQuery(sql);
 			while (rs.next()) {
 				EmpDTO emp = makeEmp(rs);
 				emplist.add(emp);
 			}
 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return emplist;
+	}
+
+	// 2.특정 직원에 대한 상세보기
+	public EmpDTO selectById(int empId) throws ClassNotFoundException, SQLException {
+		EmpDTO emp = null;
+
+		String sql = "select * from employees where employee_id=" + empId;
+		conn = DBUtil.dbConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+
+			if (rs.next()) {
+				emp = makeEmp(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return emp;
+	}
+
+	// 3. 특정 부서의 전체 직원 목록 조회
+	public List<EmpDTO> selectByDepId(int eid) {
+		List<EmpDTO> emplist = new ArrayList<EmpDTO>();
+		String sql = "select * from employees where department_id=?" ;
+
+		try {
+			conn = DBUtil.dbConnection();
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, eid);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				EmpDTO emp = makeEmp(rs);
+				emplist.add(emp);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return emplist;
+	}
+
+	// 4. 특정 Job 직원 목록 조회
+	public List<EmpDTO> selectByJobId(String jobId) {
+		List<EmpDTO> emplist = new ArrayList<EmpDTO>();
+//		String sql = "select * from employees where job_id=" + "'" + jobId + "'";
+		String sql = "select * from employees where job_id= ?||'%'";//?는 바인딩 변수
+
+		try {
+			conn = DBUtil.dbConnection();
+			pst = conn.prepareStatement(sql);
+			pst.setString(1,jobId);//첫 번째 ?에 jobId를 넣어라.
+			rs=pst.executeQuery();
+			
+			while (rs.next()) {
+				EmpDTO emp = makeEmp(rs);
+				emplist.add(emp);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, pst, rs);
 		}
 		return emplist;
 	}
@@ -59,8 +129,6 @@ public class EmpDAO {
 
 		return emp;
 	}
-
-	// 특정 직원 1명 조회
 
 	// 특정 부서 근무 직원 조회
 

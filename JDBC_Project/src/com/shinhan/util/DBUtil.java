@@ -9,19 +9,28 @@ import java.sql.Statement;
 public class DBUtil {
 
 	//DB 연결
-	public static Connection dbConnection() throws ClassNotFoundException, SQLException {
+	public static Connection dbConnection() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String userid = "hr";
 		String password = "hr";
 		Connection conn = null;
 
 		// 1.JDBC Driver Load
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// 2.Connection 생성
-		conn = DriverManager.getConnection(url, userid, password);
-		
-
+		try {
+			conn = DriverManager.getConnection(url, userid, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		return conn;
 	}
 	
