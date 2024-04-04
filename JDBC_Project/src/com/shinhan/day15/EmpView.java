@@ -35,7 +35,7 @@ public class EmpView {
 
 	// 단순 메시지 출력
 	public static void print(String message) {
-		System.out.printf("=========&s=========\n", message);
+		System.out.printf("=========%s=========\n", message);
 	}
 
 }

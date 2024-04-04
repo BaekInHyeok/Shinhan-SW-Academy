@@ -24,7 +24,6 @@ public class DateUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date d2 = sdf.parse(d);
-
 			result = new java.sql.Date(d2.getTime());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
