@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+/*HTML5 문서 내에서 디자인(internal stylesheet)*/
+table, tr, td {
+	border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+	<h1>목록 보여주기</h1>
+	<ol>
+		<li>HTML5</li>
+		<li>css3</li>
+		<li>javascript</li>
+		<li>jquery</li>
+	</ol>
+
+	<ol type="A">
+		<li>HTML5</li>
+		<li>css3</li>
+		<li>javascript</li>
+		<li>jquery</li>
+	</ol>
+
+	<ul>
+		<li>HTML5</li>
+		<li>css3</li>
+		<li>javascript</li>
+		<li>jquery</li>
+	</ul>
+
+	<dl>
+		<dt>FrontEnd</dt>
+		<dd>Html</dd>
+		<dd>css3</dd>
+		<dd>javascript</dd>
+		<dd>jQuery</dd>
+		<dt>backend</dt>
+		<dd>java</dd>
+		<dd>DB</dd>
+		<dd>jspservlet</dd>
+		<dd>SpringFrameWlrk</dd>
+
+	</dl>
+
+	<table border="1">
+		<caption>HTML5 학습</caption>
+		<thead>
+			<tr>
+				<th>A</th>
+				<th>B</th>
+				<th>C</th>
+				<th>D</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td rowspan="2">HTML5</td>
+				<td>CSS3</td>
+				<td>javascript</td>
+				<td>jquery</td>
+			</tr>
+			<tr>
+				<td>CSS3</td>
+				<td colspan="2">javascript</td>
+
+			</tr>
+			<tr>
+				<td>HTML5</td>
+				<td>CSS3</td>
+				<td>javascript</td>
+				<td>jquery</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<td colspan="4">끝</td>
+
+		</tfoot>
+	</table>
+
+	<h1></h1>
+
+	<table border="1">
+
+		<thead>
+			<tr>
+				<th>이름</th>
+				<th>나이</th>
+				<th>전공</th>
+				<th>취미</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>A</td>
+				<td>12</td>
+				<td rowspan="4">컴공</td>
+				<td>등산</td>
+			</tr>
+			<tr>
+				<td>B</td>
+				<td rowspan="2">22</td>
+				<td>화공</td>
+
+			</tr>
+			<tr>
+				<td>C</td>
+
+				<td></td>
+
+			</tr>
+			<tr>
+				<td>D</td>
+				<td>25</td>
+				<td></td>
+
+			</tr>
+
+		</tbody>
+	</table>
+
+	<h1></h1>
+
+
+	<table border="1">
+		<caption>요안도라 객실</caption>
+		<thead>
+			<tr>
+				<th>방 이름</th>
+				<th>대상</th>
+				<th>크기</th>
+				<th>가격</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>유채방</td>
+				<td>여성 도미토리</td>
+				<td rowspan="3">4인실</td>
+				<td rowspan="4">1인 20,000원</td>
+			</tr>
+			<tr>
+				<td rowspan="2">동백방</td>
+				<td>동성 도미토리</td>
+
+			</tr>
+			<tr>
+				<td>가족 1팀</td>
+			</tr>
+			<tr>
+				<td>천혜향방</td>
+				<td>-</td>
+				<td>2인실</td>
+
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">바깥채 전체를 렌트합니다</td>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+</html>

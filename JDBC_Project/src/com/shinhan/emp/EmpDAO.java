@@ -1,13 +1,17 @@
-package com.shinhan.day15;
+package com.shinhan.emp;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.shinhan.util.DBUtil;
 
@@ -82,7 +86,7 @@ public class EmpDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			DBUtil.dbDisconnect(conn, st, rs);
+			DBUtil.dbDisconnect(conn, pst, rs);
 		}
 		return emplist;
 	}
@@ -206,7 +210,7 @@ public class EmpDAO {
 		return result;
 	}
 
-	// 7.삭제(Delete)
+	// 8.삭제(Delete)
 	public int empDelete(int empid) {
 		int result = 0;
 		String sql = "delete from employees where EMPLOYEE_ID=?";
@@ -223,6 +227,58 @@ public class EmpDAO {
 		}
 
 		return result;
+	}
+
+	// 9.직원번호를 입력받아 해당 직원의 정보(이름, 직책, 급여)를 리턴
+	public Map<String, Object> empInfo(int empid) {
+		Map<String, Object> empMap = new HashMap<>();
+		String fname=null, job=null;
+		int salary = 0;
+		String sql = "{call sp_empInfo(?,?,?,?)}";
+		CallableStatement cstmt = null;
+		
+		conn=DBUtil.dbConnection();
+		try {
+			cstmt = conn.prepareCall(sql);
+			cstmt.setInt(1, empid);
+			cstmt.registerOutParameter(2, Types.VARCHAR);
+			cstmt.registerOutParameter(3, Types.VARCHAR);
+			cstmt.registerOutParameter(4, Types.VARCHAR);
+			boolean result = cstmt.execute();
+			
+			fname=cstmt.getString(2);
+			job=cstmt.getString(3);
+			salary=cstmt.getInt(4);
+			
+			empMap.put("fname", fname);
+			empMap.put("job", job);
+			empMap.put("salary", salary);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return empMap;
+	}
+	
+	//10.직원번호가 들어오면 직원의 보너스를 return하는 함수를 호출한다
+	public double callFunction(int empid) {
+		double bonus=0;
+		
+		String sql="select f_bonus(?)from dual";
+		conn = DBUtil.dbConnection();
+		try {
+			pst=conn.prepareStatement(sql);
+			pst.setInt(1, empid);
+			rs=pst.executeQuery();
+			
+			if(rs.next()) {
+				bonus=rs.getDouble(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bonus;
 	}
 
 	private EmpDTO makeEmp(ResultSet rs) throws SQLException {
@@ -242,11 +298,5 @@ public class EmpDAO {
 
 		return emp;
 	}
-
-	// 특정 부서 근무 직원 조회
-
-	// 입력
-	// 수정
-	// 삭제
 
 }

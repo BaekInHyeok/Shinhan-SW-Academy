@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>경로 연습</h1>
+	<!-- img태그는 inline 요소(컨텐츠의 양만큼만 자리를 차지한다) -->
+	<p>상대경로(현재 HTML 페이지 기준) alt=이미지 로딩 실패 등의 문제 발생 시 대신할 설명</p>
+	<img alt="샐러드가 맛있다..." src="../04/images/salad.jpg" width="200"
+		, height="200">
+	<hr>
+	<img alt="마이크" src="./mic.jpg" width="200" ,height="200">
+	<img alt="마이크" src="mic.jpg" width="200" ,height="200">
+
+	<h1></h1>
+	<p>절대경로 alt=이미지 로딩 실패 등의 문제 발생 시 대신할 설명</p>
+	<img alt="샐러드가 맛있다..."
+		src="http://localhost:9090/webproject/04/images/salad.jpg" width="200"
+		, height="200">
+	<img alt="샐러드가 맛있다..." src="/webproject/04/images/salad.jpg"
+		width="200" , height="200">
+
+	<img alt="샐러드가 맛있다..." src="/webproject/04/images/salad.jpg">
+	<img alt="샐러드가 맛있다..." src="/webproject/04/images/salad.jpg" width="50%" height="50%">
+
+</body>
+</html>

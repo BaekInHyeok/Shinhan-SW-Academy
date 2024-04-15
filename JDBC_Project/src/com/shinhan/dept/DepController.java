@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.shinhan.day15.EmpView;
+import com.shinhan.emp.EmpView;
 
 public class DepController {
 

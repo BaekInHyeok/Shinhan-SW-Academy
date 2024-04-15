@@ -1,4 +1,4 @@
-package com.shinhan.day15;
+package com.shinhan.emp;
 
 import java.sql.Connection;
 import java.sql.Date;
