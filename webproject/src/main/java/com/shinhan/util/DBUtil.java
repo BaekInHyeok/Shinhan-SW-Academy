@@ -11,8 +11,8 @@ public class DBUtil {
 	//DB 연결
 	public static Connection dbConnection() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String userid = "hr";
-		String password = "hr";
+		String userid = "apartment";
+		String password = "1234";
 		Connection conn = null;
 
 		// 1.JDBC Driver Load

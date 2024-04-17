@@ -18,17 +18,33 @@
 			line-height:20px;
 			font-size:12px;
 		}
+		article{
+			float:left;
+			width:300px;
+			height:200px;
+			margin:20px;
+			padding:20px;
+			border:1px solid #ccc;
+		}
 		footer {
 			width:100%;
 			height:50px;
 			background-color:#222;
+			clear:left;
 		}
+		/*
+		자식 : 바로 다음에 나온다, <
+		자손 : 하위에 있다, 빈칸
+		*/
 		footer > p {
 			color:#fff;
 			font-size:0.9em;
 			text-align: center;
 			line-height:50px;
 		}
+		.at1{background-color: lightgreen;}
+		.at2{background-color: pink;}
+		.at3{background-color: gray;}
 </style>
 </head>
 <body>

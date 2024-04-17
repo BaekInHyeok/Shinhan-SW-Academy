@@ -4,25 +4,69 @@
 <meta charset="UTF-8">
 <title>동별 입주민 목록</title>
 </head>
-<body>
-	<h1>해당 동의 입주민 목록 검색하기</h1>
-	<h3>동 선택</h3>
+<style>
+body {
+	background: url('apartment.jpg') left top no-repeat fixed;
+	background-size: cover;
+}
 
-	<form action="jsp/getResidentlist.jsp" method="get">
-	<select name="dong">
-		<option selected="selected">101</option>
-		<option>102</option>
-		<option>103</option>
-		<option>104</option>
-		<option>105</option>
-		<option>106</option>
-		<option>107</option>
-		<option>108</option>
-		<option>109</option>
-	</select>
-	<input type="submit" value="조회하기">
-	</form>
+#container {
+	background-color: gray;
+	margin: 0 auto;
+	height: 500px;
+	width: 1000px;
+	text-align:center;
 	
-	
+}
+
+#submit{
+	font-size: 40px;
+	color:white;
+	background-color: black;
+}
+
+h1 {
+	color: white;
+	font-size: 50px;
+	text-align: center;
+}
+h3{
+	color:white;
+	font-size:30px;
+	text-align:center;
+}
+
+select {
+	width: 300px;
+	height: 60px;
+	font-size: 40px;
+}
+
+option {
+	font-size: 40px;
+}
+
+
+
+</style>
+<body>
+	<div id="container">
+		<h1>해당 동의 입주민 목록 검색하기</h1>
+		<h3>동 선택</h3>
+
+		<form action="jsp/getResidentlist.jsp" method="get">
+			<select name="dong">
+				<option selected="selected">101</option>
+				<option>102</option>
+				<option>103</option>
+				<option>104</option>
+				<option>105</option>
+				<option>106</option>
+				<option>107</option>
+				<option>108</option>
+				<option>109</option>
+			</select> <input type="submit" id="submit" value="조회하기">
+		</form>
+	</div>
 </body>
 </html>

@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>CSS display 속성</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    nav ul {
-      list-style:none;      
-    }
-    nav ul li {
-      display:inline-block;      
-      padding:20px;
-      margin:0 20px;
-      border:1px solid #222;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>CSS display 속성</title>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+nav ul {
+	list-style: none;
+	font-size: 0px;
+}
+
+nav ul li {
+	display: inline;
+	padding: 20px;
+	border: 1px solid #222;
+	font-size: 20px;
+	color: white;
+	background-color: black;
+}
+
+li:nth-child(1) {
+	border-top-left-radius: 25%;
+	border-bottom-left-radius: 25%;
+}
+
+li:nth-child(4) {
+	border-top-right-radius: 25%;
+	border-bottom-right-radius: 25%;
+}
+
+a {
+	text-decoration: none;
+}
+</style>
 </head>
 <body>
-   <nav>
-     <ul>
-      <li>menu 1</li>
-      <li>menu 2</li>
-      <li>menu 3</li>
-      <li>menu 4</li>
-     </ul>
-   </nav>
+	<nav>
+		<ul>
+			<li><a href="../day1/jsp/empAll.jsp">직원조회</li>
+			<li>직원입력</li>
+			<li>부서조회</li>
+			<li>부서입력</li>
+		</ul>
+	</nav>
 </body>
 </html>

@@ -10,32 +10,67 @@
 <title>직원 목록</title>
 </head>
 <style>
-#container {
-	width: 515px;
-	border:1px solid gray;
-	margin:0 auto
-	
+body {
+	background-image: url('../../09/images/bg1.jpg');
 }
-table, th, td{
+
+#container {
+	width: 1200px;
+	margin: 0 auto
+}
+
+table, th, td {
 	border-collapse: collapse;
 }
-th, td{
-	padding:10px;
+
+th, td {
+	padding: 10px;
 	text-align: justify;
 }
-thead{
-	background-color: lightgreen;
-	color:gray;
+
+thead {
+	background-color: black;
+	color: white;
 }
 /* 칸을 띄우면 자손을 뜻함 */
-tbody tr:nth-child(2n){
-	background-color:lightgray;
-	color:white;
+tbody tr:nth-child(2n) {
+	background-color: lightgray;
+	color: black;
 }
-tbody tr:nth-child(2n+1){
-	background-color:gray;
-	color:white;
+
+tbody tr:nth-child(2n+1) {
+	background-color: gray;
+	color: white;
 }
+
+td[data-lname] {
+	font-size: 20px;
+}
+
+td[data-lname^='A'] {
+	color: red;
+}
+
+td[data-job~='IT_PROG'] {
+	color: purple;
+}
+
+td[data-hdate |='2005'] {
+	font-style: italic;
+	color:green;
+}
+
+td[data-hdate $='07'] {
+	font-style: italic;
+	color:red;
+}
+
+td[data-phone *='123'] {
+	font-style: italic;
+	color:red;
+}
+
+
 
 h1 {
 	height: 100px;
@@ -53,6 +88,10 @@ a.decoNone {
 	padding: 10px;
 	border-radius: 10px;
 }
+
+caption {
+	font-size: 30px;
+}
 </style>
 <body>
 	<div id="container">
@@ -66,9 +105,11 @@ a.decoNone {
 					<th>이름</th>
 					<th>성</th>
 					<th>이메일</th>
+					<th>전화번호</th>
 					<th>커미션</th>
 					<th>급여</th>
 					<th>입사일</th>
+					<th>직책</th>
 				</tr>
 			</thead>
 
@@ -85,11 +126,13 @@ a.decoNone {
 							<%=emp.getEmployee_id()%></td>
 					<td><a href="empDetail.jsp?empid=<%=emp.getEmployee_id()%>">
 							<%=emp.getFirst_name()%></td>
-					<td><%=emp.getLast_name()%></td>
+					<td data-lname="<%=emp.getLast_name()%>"><%=emp.getLast_name()%></td>
 					<td><%=emp.getEmail()%></td>
+					<td data-phone="<%=emp.getPhone_number() %>"><%=emp.getPhone_number() %>
 					<td><%=emp.getCommission_pct()%></td>
 					<td><%=emp.getSalary()%></td>
-					<td><%=emp.getHire_date()%></td>
+					<td data-hdate="<%=emp.getHire_date()%>"><%=emp.getHire_date()%></td>
+					<td data-job="<%=emp.getJob_id()%>"><%=emp.getJob_id()%></td>
 				</tr>
 				<%
 				}

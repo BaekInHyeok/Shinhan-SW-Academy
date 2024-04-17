@@ -1,7 +1,28 @@
 table, th, td {
-  border:1px solid #ccc;
-  border-collapse: collapse;
+	border: 1px solid #ccc;
+	border-collapse: collapse;
 }
-th, td { 
-  padding:10px 20px; 
+
+th, td {
+	padding: 10px 20px;
+}
+
+#container {
+	width: 800px;
+	border: 1px solid black;
+	margin: 0 auto;
+}
+
+div {
+	padding: 20px;
+	border: 2px dotted gray;
+	margin: 10px;
+}
+
+/*
+px:고정크기
+em:부모의 영향을 받는다.
+*/
+#receipe {
+	border-radius: 30px;
 }
