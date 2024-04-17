@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+/*Internal Stylesheet*/
+h3 {
+	color: blue;
+	border: 2px dotted red;
+}
+
+p {
+	font-size: 30px;
+	color: oranage;
+	background-color:fuchsia;
+}
+
+* {
+	margin: 0;
+}
+
+#container{
+	width:500px;
+	height:500px;
+	border:1px solid gray;
+	margin:0 auto;
+}
+
+/*서로 다른 여러 태그에 대하여 같은 css 디자인을 적용*/
+.my1{
+	color: blue;
+	font-size : 50px;
+}
+
+/*그룹 선택자*/
+h1, h2,h3{
+	text-align:center;
+}
+
+</style>
+<!-- External Stylesheet -->
+<link rel="stylesheet" href="external.css" />
+</head>
+<body>
+	<div id="container">
+		<h1 class="my1">CSS문법 익히기</h1>
+		<h2 style="color: red;">CSS문법 익히기(In-Line Stylesheet)</h2>
+		<h3 class="my1">h3입니다.</h3>
+		<p class="my1">p태그입니다.</p>
+		<p>p태그입니다.</p>
+	</div>
+</body>
+</html>

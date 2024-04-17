@@ -1,5 +1,6 @@
 package com.shinhan.util;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,5 +32,20 @@ public class DateUtil {
 		}
 
 		return result;
+	}
+
+	public static java.sql.Timestamp getSQLDateTime(String d) {
+		Timestamp timestamp = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date;
+		try {
+			date = sdf.parse(d);
+
+			// Date 객체를 Timestamp으로 변환
+			timestamp = new Timestamp(date.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return timestamp;
 	}
 }
