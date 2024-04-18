@@ -47,17 +47,40 @@
     border-radius:5px;        
   }
 
- .contents :nth-child(3) {
+ .contents :nth-child(3) {/*전체 중에 세 번째*/
     background-color:#ffff00;
   }
-  .contents p:nth-of-type(3) {
+  .contents p:nth-of-type(3) {/*p타입들 중 세 번째*/
     background-color:#00b900;
-  }  
+  } 
+  
+  /*container의 자손들마다 첫 번째 자식들에 대해 설정*/
+  .container :nth-child(1){
+  	background-color: lightblue;
+  }
+  
+  /*container의 자손들 중 첫 번째 자식이 p인 경우*/
+  .container p:nth-child(1){
+  	background-color: lightpink;
+  }
+  
+  /*container의 자손들에서 처음으로 나오는 p인 경우*/
+  .container p:nth-of-type(1){
+  	background-color: lightpink;
+  }
 </style>
 </head>
 
 <body>
 <div class="container">
+
+	<h3>h3h3h3</h3>
+	<p>p1</p>
+	<p>p2</p>
+	<p>p3</p>
+	<p>p4</p>
+	<p>p5</p>
+	
     <nav class="navi">
       <ul>
         <li><a href="#">이용 안내</a></li>

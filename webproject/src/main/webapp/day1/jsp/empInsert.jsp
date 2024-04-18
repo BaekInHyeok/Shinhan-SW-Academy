@@ -11,6 +11,11 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
 	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 #container {
@@ -59,25 +64,45 @@ input {
 	border-radius: 10px;
 }
 
-#submit {
+/* input[value] {
+	background-color: lightblue;
+} */
+
+/* input[type="submit"], input[type="reset"] {
+	background-color: gray;
+} */
+
+/* input:focus {
+	background-color: beige;
+}
+
+input:hover {
+	background-color: hotpink;
+} */
+
+.aa label {
+	
+}
+
+/* #submit {
 	text-decoration: none;
 	background-color: black;
-	width:100px;
+	width: 100px;
 	color: white;
 	padding: 10px;
 	border-radius: 10px;
 	font-family: "굴림";
 }
-#reset{
+
+#reset {
 	text-decoration: none;
 	background-color: white;
-	width:100px;
+	width: 100px;
 	color: black;
 	padding: 10px;
 	border-radius: 10px;
 	font-family: "굴림";
-
-}
+} */
 </style>
 <body>
 	<div id="container">
@@ -116,10 +141,8 @@ input {
 					value="100"><br> <label>부서ID</label> <input
 					type="number" name="department_id" value="100"><br>
 			</fieldset>
-			<br>
-
-			<input id="submit" type="submit" value="입력"> <input
-				id="reset" type="reset" value="지우기">
+			<br> <input id="submit" type="submit" class="btn btn-success" value="입력"> <input
+				id="reset" type="reset" class="btn btn-success" value="지우기">
 
 
 		</form>

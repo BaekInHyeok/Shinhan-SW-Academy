@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.shinhan.util.DBUtil;
+import com.shinhan.util.DBUtil2;
 
 //DAO(Data Access하는 비즈니스 로직을 처리하는 object)
 public class residentDAO {
@@ -23,7 +23,7 @@ public class residentDAO {
 	public residentDTO findBYID(int resID) {
 		residentDTO res = null;
 		String sql = "select * from resident where resident_id = " + resID;
-		conn = DBUtil.dbConnection();
+		conn = DBUtil2.dbConnection();
 
 		try {
 			st = conn.createStatement();
@@ -36,7 +36,7 @@ public class residentDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			DBUtil.dbDisconnect(conn, st, rs);
+			DBUtil2.dbDisconnect(conn, st, rs);
 		}
 
 		return res;
@@ -47,7 +47,7 @@ public class residentDAO {
 		List<residentDTO> reslist = new ArrayList<residentDTO>();
 		String sql = "select * from resident where resident_dong = ? order by resident_ho";
 
-		conn = DBUtil.dbConnection();
+		conn = DBUtil2.dbConnection();
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, resDONG);
@@ -61,7 +61,7 @@ public class residentDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil2.dbDisconnect(conn, pst, rs);
 		}
 
 		return reslist;
@@ -72,7 +72,7 @@ public class residentDAO {
 	public int resInsert2(residentDTO res) {
 		int result = 0;
 
-		conn = DBUtil.dbConnection();
+		conn = DBUtil2.dbConnection();
 
 		String sql = "insert into resident values(?,?,?,?,?,?,?,?,?)";
 
@@ -102,7 +102,7 @@ public class residentDAO {
 		} catch (SQLException e) {// 여기서 세대주 중복에 대한 커스텀 예외처리
 			System.out.println(e.getMessage());
 		} finally {
-			DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil2.dbDisconnect(conn, pst, rs);
 		}
 
 		return result;
@@ -111,7 +111,7 @@ public class residentDAO {
 	// 4.주민 정보 수정 : 항목 선택해서 업데이트하기
 	public int resUpdate(int key, int resid, Object obj) {
 		int result = 0;
-		conn = DBUtil.dbConnection();
+		conn = DBUtil2.dbConnection();
 		try {
 
 			switch (key) {
@@ -172,7 +172,7 @@ public class residentDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil2.dbDisconnect(conn, pst, rs);
 		}
 
 		return result;
@@ -185,7 +185,7 @@ public class residentDAO {
 
 		String sql = "delete from resident where resident_id = ?";
 
-		conn = DBUtil.dbConnection();
+		conn = DBUtil2.dbConnection();
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, resID);
@@ -194,7 +194,7 @@ public class residentDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil2.dbDisconnect(conn, pst, rs);
 		}
 
 		return result;

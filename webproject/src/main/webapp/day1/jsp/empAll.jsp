@@ -8,6 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>직원 목록</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 body {
@@ -80,25 +86,53 @@ h1 {
 	background-color: beige;
 	color: orange;
 }
-
+/* 
 a.decoNone {
 	text-decoration: none;
 	background-color: black;
 	color: white;
 	padding: 10px;
 	border-radius: 10px;
-}
+} */
 
 caption {
 	font-size: 30px;
 }
+
+
+/*tbody 중에 첫 번째 tr*/
+tbody tr:nth-child(1){
+	background-color:orange;
+}
+tbody tr:nth-of-type(4){
+	background-color:lightgreen;
+}
+
+td:nth-child(5){
+	border:5px dotted red;
+}
+td:nth-child(2n){
+	border:5px dotted green;
+}
+td:last-child{
+	background-color: purple;
+}
+
+tbody tr:last-child{
+	background-color:lightblue;
+}
+
+.caption::after, .caption::before{
+	content: "@@@@@@@";
+}
+
 </style>
 <body>
 	<div id="container">
 		<h1>전체 직원 정보</h1>
-		<a class="decoNone" href="empInsert.jsp">신규 직원 등록</a>
+		<a class="decoNone btn btn-danger" href="empInsert.jsp" >신규 직원 등록</a>
 		<table border="1">
-			<caption>직원목록</caption>
+			<caption class="caption">직원목록</caption>
 			<thead>
 				<tr>
 					<th>직원ID</th>

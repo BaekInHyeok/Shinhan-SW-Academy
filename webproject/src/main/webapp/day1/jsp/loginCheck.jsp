@@ -3,6 +3,7 @@
 <%
 	String uid=request.getParameter("userid");
 	String upw=request.getParameter("userpw");
+	String remember=request.getParameter("remember");
 
 
 
@@ -18,5 +19,6 @@
 
 <p>아이디는<%=uid %>
 <p>PW는<%=upw %>
+<p>remember:<%=remember %>
 </body>
 </html>
