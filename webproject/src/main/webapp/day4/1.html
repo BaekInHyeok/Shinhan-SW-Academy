@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+.A a {
+	display: block;
+}
+.C a:nth-child(){
+	background-color:orange;
+	visibility: hidden;/*보이지는 않지만 자리는 차지함*/
+	display: none;/*자리를 차지하지 않음*/
+	 
+}
+</style>
+</head>
+<body>
+
+	<h1>display가 block</h1>
+	<div class="A">
+		<a href="/html/default.asp" target="_blank">HTML</a> <a
+			href="/css/default.asp" target="_blank">CSS</a> <a
+			href="/js/default.asp" target="_blank">JavaScript</a>
+	</div>
+
+	<h1>display가 inline(default)</h1>
+	<div class="B">
+		<a href="/html/default.asp" target="_blank">HTML</a> <a
+			href="/css/default.asp" target="_blank">CSS</a> <a
+			href="/js/default.asp" target="_blank">JavaScript</a>
+	</div>
+	
+	<h1>display가 inline(연습)</h1>
+	<div class="C">
+		<a href="/html/default.asp" target="_blank">HTML</a> <a
+			href="/css/default.asp" target="_blank">CSS</a> <a
+			href="/js/default.asp" target="_blank">JavaScript</a>
+	</div>
+</body>
+</html>

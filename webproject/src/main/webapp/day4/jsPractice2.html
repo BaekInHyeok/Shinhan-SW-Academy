@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<h1>자바스크립트 문법</h1>
+	<button id="btn1">alert함수</button>
+	<button id="btn2">confirm함수</button>
+	<button id="btn3">prompt함수</button>
+	<button id="btn4">데이터타입(6가지)</button>
+	<button id="btn5">write함수</button>
+	<button id="btn6">변수 이름으로 제공되는 함수명을 쓴 경우</button>
+	<button id="btn7">===연산자</button>
+	<hr>
+	<div id="here">여기에 출력하려고 한다.</div>
+
+	<script>
+		//자바스크립트는 동적 typing. 즉 값이 할당되면 그에 맞게 타입이 결정된다.
+		var a = document.getElementById("btn1");
+		var b = document.getElementById("btn2");
+		var c = document.getElementById("btn3");
+		var d = document.getElementById("btn4");
+		var e = document.getElementById("btn5");
+		var f = document.getElementById("btn6");
+		var g = document.getElementById("btn7");
+		var here = document.getElementById("here");
+		//console.log(a);
+		a.onclick = function() {
+			console.log("버튼 1 누름");
+			document.getElementById("here").innerHTML = "버튼 1 누름" + a.innerHTML;
+			alert("알림창 보이기 함수");
+		};
+		b.onclick = function() {
+			console.log("버튼 2 누름");
+			document.getElementById("here").innerHTML = "버튼 2 누름" + b.innerHTML;
+			var result = confirm("직원 목록 조회 페이지를 열까요?");
+			if (result) {
+				//alert("계속");
+				location.href = "../day1/jsp/empAll.jsp";
+			} else {
+				alert("중단");
+			}
+		};
+		c.onclick = function() {
+			var age = prompt("나이를 입력?", 20);
+			here.innerHTML = Number(age) + 10;
+		};
+		d.onclick = function() {
+			//number, string, boolean, object, function, undefined
+			//변수 선언은 필수가 아님
+			//undefined:변수는 선언하였지만 값은 할당되지 않음
+			//값을 할당하면 타입이 결정됨
+			var v1;
+			here.innerHTML += "<br>" + v1 + " >> " + typeof (v1);
+			v1 = 100;
+			here.innerHTML += "<br>" + v1 + " >> " + typeof (v1);
+			v1="문자";
+			here.innerHTML += "<br>" + v1 + " >> " + typeof (v1);
+			v1=10>0;
+			here.innerHTML += "<br>" + v1 + " >> " + typeof (v1);
+			v1=[1,2,3];//배열
+			here.innerHTML += "<br>" + v1 + " >> " + typeof (v1);
+			v1={이름:"홍길동", 나이:20};//object
+			here.innerHTML += "<br>" + v1 + " >> " + typeof (v1);
+			v1=function(){alert("함수입니다.");};
+			here.innerHTML += "<br>" + v1 + " >> " + typeof (v1);
+			v1();
+		};
+		e.onclick=function(){
+			document.write("<h1>write 함수로 문서에 문자열을 출력한다.</h1>")
+		}
+		f.onclick=function(){
+			var alert="변수 이름을 예약어 쓴 실수";
+			//alert(alert);  //프로그램이 중단됨
+			delete window.alert;
+			alert("@@@@@");
+		}
+		g.onclick=function(){
+			here.innerHTML = 10=="10";//값만 같으면 됨
+			here.innerHTML += "<br>"+(10==="10");//값과 타입도 확인
+		}
+	</script>
+</body>
+</html>

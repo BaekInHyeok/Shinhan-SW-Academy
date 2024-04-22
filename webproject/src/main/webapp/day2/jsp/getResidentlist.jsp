@@ -21,6 +21,10 @@ table {
 	font-size: 25px;
 }
 
+th{
+	background-color:black;
+}
+
 body {
 	background: url('apartment.jpg') left top no-repeat fixed;
 	background-size: cover;

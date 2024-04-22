@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script>
+	//1.익명함수...이름이 없는 함수
+	f = function() {
+	};
+
+	//2.선언적 함수...이름이 있는 함수
+
+	var v1 = 300;//함수 밖에서 var은 global 함수
+	v2 = 400;//var이 없으면 global 변수
+
+	function call1() {
+		document.getElementById("here").innerHTML = "변수선언";
+		var a = 100;//함수 내에서 var은 지역변수
+		b = 200;//var이 없으면 global 변수
+	}
+	function call2() {
+		document.getElementById("here").innerHTML = v1 + v2;
+	}
+	function call3() {
+		var a = 100, b = 10;
+		//&& : 앞의 결과가 false이면 뒷부분은 수행 안함
+		var result = a >= 100 && ++b > 10;
+		//|| : 앞의 결과가 true이면 뒷부분은 수행 안함
+		var result2 = a >= 100 || ++b > 10;
+
+		document.getElementById("here").innerHTML = result + ">>" + b + ":"
+				+ result2;
+	}
+	function call4() {
+		score = prompt("점수를 입력하세요");
+		var grade;
+		if (score >= 90 && score <= 100) {
+			document.getElementById("here").innerHTML = "A";
+		} else if (score >= 80 && score < 90) {
+			document.getElementById("here").innerHTML = "B";
+		} else if (score >= 70 && score < 80) {
+			document.getElementById("here").innerHTML = "C";
+		} else if (score >= 60 && score < 70) {
+			document.getElementById("here").innerHTML = "D";
+		} else
+			document.getElementById("here").innerHTML = "F";
+
+		//자바스크립트는 number:정수, 실수
+	}
+
+	function call5() {
+		//변수 선언 시 : var인가 let인가?
+		{
+			let a = 100;
+			var b = 200;
+			console.log(a);
+			console.log(b);
+		}
+		//console.log(a); //여기서는 사용 불가
+		console.log(b);//var은 외부에서도 사용 가능
+
+		var su = document.querySelector("#score").value;//id가 score인 곳에서 값을 얻어온다.
+		var total = 0;
+		//block 내에서만 유효한 변수(scope)
+		for (var i = 1; i <= su; i++) {
+			total += i;
+		}
+		document.getElementById("here").innerHTML = "1~" + su + "까지의 합계 : "
+				+ total;
+		console.log("var는 지역변수이다. 지역변수는 함수 내에서 사용 가능:" + i);
+	}
+
+	function call6() {
+		//``:빽틱
+		var output = "";
+		for (let gop = 1; gop <= 9; gop++) {
+			//if(gop==4)break;
+			for (let dan = 2; dan <= 9; dan++) {
+				/* output += dan + "*" + gop + "=" + dan * gop;
+				+" "; */
+
+				output += `${dan} * ${gop} = ${dan*gop} &nbsp&nbsp&nbsp`;
+			}
+			output += "<br>"
+		}
+
+		document.getElementById("here").innerHTML = output;
+	}
+	//console.log(var1)//not defined 오류 발생
+
+	//자바스크립트는 var과 function을 맨 위로 끌어올린다.(호이스팅)
+	console.log("js1=" + js1);
+	var js1 = 100;
+	console.log("js1=" + js1);
+
+	//함수호출
+	call7();
+	//함수정의
+	function call7() {
+		console.log("js2=" + js2);
+		var js2 = 200;
+		console.log("js2=" + js2);
+		alert(js1 + js2);
+
+		const js3 = 300;
+		//js3=400; //상수는 값을 바꿀 수 없다.
+		let js4 = 400;
+		js4 = 500;
+		//let js4 = "자바스크립트"	//할당은 가능, 재선언은 불가
+	}
+
+	function call8() {
+		var result = sum(1, 10);
+		here.innerHTML = result;
+	}
+
+	function sum(start, end) {
+		var total = 0;
+
+		for (let i = start; i <= end; i++) {
+			total += i;
+		}
+
+		return total;
+	}
+
+	//이름이 있는 함수:선언적 함수
+	function call9() {
+		//내부함수:함수 내의 함수
+		//익명함수:이름이 없는 함수
+		var f1 = function(a,b) {
+			console.log("익명함수:이름이 없는 함수"+(a+b));
+			return a+b;
+		};
+		var result=f1(10,20);//인수를 주고 함수를 호출함. 함수의 매개변수가 값을 받게 됨
+		console.log("받은값:"+result);
+		
+		//즉시 실행하는 함수
+		var result2=(function(a,b){
+			console.log("익명함수:이름이 없는 함수"+(a+b));
+			return a+b;
+		})(30,40);
+		
+		console.log("즉시실행함수 받은값:"+result2);
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript 연습</h1>
+	<button id="btn1" onclick="call1()">변수에 대하여1</button>
+	<button id="btn1" onclick="call2()">변수에 대하여2</button>
+	<button id="btn3" onclick="call3()">논리연산자</button>
+	<br>
+	<input type="number" id="score" value="100">
+	<button id="btn4" onclick="call4()">조건문</button>
+	<button id="btn5" onclick="call5()">반복문</button>
+	<button id="btn6" onclick="call6()">구구단</button>
+	<button id="btn7" onclick="call7()">호이스팅</button>
+	<button id="btn8" onclick="call8()">return이 있는 함수</button>
+	<button id="btn9" onclick="call9()">익명함수</button>
+
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
