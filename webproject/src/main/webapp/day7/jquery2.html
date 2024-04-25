@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+#here {
+	border: 1px solid gray;
+}
+
+.myli {
+	background-color: orange;
+	border: 5px dotted blue;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	//배열
+	var arr = [ "HTML5", "CSS3", "JavaScript", "jQuery" ];
+	$(function() {
+		//load되고 나서 수행한다
+		var output = "<ul>";
+		$.each(arr, function(index, item) {
+			//output+="<li>"+item+"</li>"
+			output += `<li>${item}</li>`;
+		});
+		$("h1").each(function(index, data) {
+			//$(data).text()는 jQuery
+			//${}는 백틱문법
+			output += `<li>${index}--{$(data).text()}</li>`;
+		});
+		output += "</ul>";
+		$("#here").html(output);
+
+		//$("#btn1").click(function(){});
+		$("#btn1").on("click", function() {
+			$("li").css("color", "red");
+			$("li").addClass("myli");
+		});
+		$("#btn2").on("click", function() {
+			$("li").removeClass("myli");
+		});
+
+		//jQuery 대신에 $를 사용했는데... 사용하지 않음이라고 설정
+		//$.noConflict();
+
+		$("#btn3").on("click", function() {
+			var obj1 = {
+				name : "홍길동",
+				age : 20
+			};
+			var obj2 = {
+				주소 : "마포구 연남동",
+				phone : "010-3948-2848"
+			};
+			$.extend(obj1, obj2, {
+				전공 : "컴공",
+				취미 : "게임"
+			});
+
+			$.each(obj1, function(key, data) {
+				console.log(key + ">>" + data);
+			});
+		});
+
+		$("#btn4").on("click", function() {
+			//$("h1:even").css("backgroundColor","orange");//0부터 시작함
+			//$("h1").filter(":even").css("backgroundColor","orange");//0부터 시작함
+			$("h1").filter(function(index, data) {
+				//console.log(index,data);
+				//if($(data).text().indexOf("2")>=0) return true;
+				//return false;
+				return $(data).text().includes("2");
+				//indexOf >> 위치찾기, includes >> 포함 여부
+			}).css("backgroundColor", "orange");//0부터 시작함
+		});
+
+		$("#btn5").on(
+				"click",
+				function() {
+					$("h1").css("border", "1px solid gray").filter(":even")
+							.css("backgroundColor", "orange").end().filter(
+									":odd").css("color", "blue");
+				});
+		$("#btn6").on("click", function() {
+			$("h1").first().css("color", "blue");
+			$("h1").eq(1).css("color", "green");
+			$("h1").eq(2).css("color", "red");
+			$("h1").last().css("color", "pink");
+			//음수는 뒤에서부터 탐색
+			$("h1").eq(-1).css("backgroundColor", "purple");
+			$("h1").eq(-2).css("backgroundColor", "hotpink");
+
+		});
+		
+		$("#btn7").on("click", function(){
+			var result=$("#here2").children().is("p");
+			console.log(result);
+		});
+		$("#btn8").on("click", function(){
+			var xmlStr="<friends>\
+				<friend>\
+					<name>홍길동</name>\
+					<age>20</age>\
+				</friend>\
+				<friend>\
+					<name>홍길동2</name>\
+					<age>22</age>\
+				</friend>\
+				</friends>\
+			";
+				
+			var obj = $.parseXML(xmlStr);
+			$(obj).find("friend").each(function(index, item){
+				console.log($(item).find("name").text());
+			});
+		});
+		
+		$("#btn9").on("click", function(){
+			$(this).parent().css({"border":"5px dotted green"},{"padding":"20px"});
+			$(this).text("비활성화");
+			$(this).parent().find("span").text("활성화");
+			
+		});
+
+	});
+</script>
+</head>
+<body>
+	<button id="btn1">li CSS 적용</button>
+	<button id="btn2">li CSS 해제</button>
+	<button id="btn3">객체 확장</button>
+	<button id="btn4">filter</button>
+	<button id="btn5">end(한 단계 올리기)</button>
+	<button id="btn6">eq(),first(),last()</button>
+	<button id="btn7">is()</button>
+	<button id="btn8">parseXML()</button>
+	<div>
+		<span>비활성화</span>
+		<button id="btn9">활성화하기</button>
+	</div>
+
+	<h1>제목1</h1>
+	<h1>제목21</h1>
+	<h1>제목22</h1>
+	<h1>제목4</h1>
+	<h1>제목5</h1>
+
+	<div id="here">
+	</div>
+	<div id="here2">
+		<p class="aa">ppppppppp</p>
+	</div>
+</body>
+</html>

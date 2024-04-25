@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- CDN 이용하기 -->
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>-->
+<script src="../js/jquery-3.7.1.min.js"></script>
+<script>
+	window.onload = function() {
+		console.log("load됨1")
+	};//무효
+	window.onload = function() {
+		console.log("load됨2")
+	};//유효
+	$(document).ready(function() {
+		console.log("load됨3");//유효
+	});
+	$(document).ready(function() {
+		console.log("load됨4");//유효
+	});
+	//document, ready는 생략이 가능함
+	$(function() {
+		console.log("load됨5");//유효
+	});
+
+	$(function() {
+		$("h1").css("color", "red");
+		var obj = {
+			"backgroundColor" : "lightgreen",
+			border : "3px dotted green"
+		};
+		$("h1").css(obj);
+		$("h1.my").css("font-size", "50px");
+
+		$("input[type='text']").css("backgroundColor", "hotpink");
+		$("input[type='text']").val("신한금융");
+		document.querySelector("input:nth-of-type(3)").value = "12345"
+
+		$("input[name |='tag']").val("수직바 이용(일치,-가능)");
+		$("input[name *='First']").val("*이용(포함)");
+		$("input[name ^='Second']").val("^이용(시작)");
+		$("input[name $='Third']").val("$이용(끝)");
+		$("input[name ~='Fifth']").val("~이용(단어)");
+		$("input[data-aa]").val("속성 존재여부");
+		$("input[type='email'][data-aa='200']").val("복수조건");
+		$("input[type='button']").css("color", "red");
+		$("input:button").css("backgroundColor", "navy");
+		$("input:disabled").val("disabled임");
+
+	});
+</script>
+</head>
+<body>
+	<h1>제목1</h1>
+	<h1>제목2</h1>
+	<h1 class="my">제목3</h1>
+	<input type="text">
+	<input type="text">
+	<input type="number">
+	<input type="password">
+	<input type="email">
+
+	<input name="tag">
+	<input name="tag-aa">
+	<input name="aaaaaFirstbbbb">
+	<!-- 포함 -->
+	<input name="Secondaaaabbbb">
+	<!-- 시작 -->
+	<input name="aaaabbbbThird">
+	<!-- 끝 -->
+	<input name="Fourth Fifth">
+	<!-- 포함(단어) -->
+
+	<input data-aa="100">
+	<input type="email" data-aa="200">
+
+	<input type="button" value="버튼1">
+	<input type="button" value="버튼2">
+	<input type="button" value="버튼3">
+	<input disabled="disabled">
+	<input disabled="disabled">
+	<select>
+		<option>월</option>
+		<option>화</option>
+		<option>수</option>
+		<option selected="selected">토</option>
+		<option>일</option>
+	</select>
+
+	<table>
+		<tr>
+			<td>A</td>
+			<td>B</td>
+			<td>C</td>
+		</tr>
+		<tr>
+			<td>A</td>
+			<td>B</td>
+			<td>C</td>
+		</tr>
+		<tr>
+			<td>A</td>
+			<td>B</td>
+			<td>C</td>
+		</tr>
+		<tr>
+			<td>A</td>
+			<td>B</td>
+			<td>C</td>
+		</tr>
+		<tr>
+			<td>A</td>
+			<td>B</td>
+			<td>C</td>
+		</tr>
+		<tr>
+			<td>A</td>
+			<td>B</td>
+			<td>C</td>
+		</tr>
+	</table>
+	<p>.......신한........</p>
+	<p>-------신한--------</p>
+	<p>ㅇㅇㅇㅇㅇㅇㅇ</p>
+	<div>
+		dddddddd 신한ppppppppppp
+		<h2>ffffffff신한kdkdkdkdk</h2>
+		<h2>ffffffffkdkdkdkdk</h2>
+	</div>
+
+	<script>
+		$("table,td").css("border", "1px solid black");
+		$("table,td").css("border-collapse", "collapse");
+		$("td").css("padding", "10px");
+
+		$("tr:even").css("backgroundColor", "orange");//0부터
+		$("tr:odd").css("backgroundColor", "lightblue");//1부터
+
+		$("tr:nth-child(2n)").css("color", "red");//2부터
+		$("tr:nth-child(2n+1)").css("color", "green");//1부터
+
+		$(":contains('신한')").css("border","2px dotted blue");
+
+		//div의 자손 중에 문자열에 신한 포함 객체 찾기
+		$("div :contains('신한')").css("border", "2px dotted red");
+
+		$(function() {
+			setTimeout(function() {
+				//var data = $("select option:selectd").val();
+				var data = $("select").val();
+				//alert(data);
+			}, 3000);
+		});
+	</script>
+</body>
+</html>

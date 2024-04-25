@@ -16,11 +16,37 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/webproject/js/jquery-3.7.1.min.js"></script>
+<script>
+$(function(){
+	$("#btnDupCheck").on("click",f_dupCheck);
+});
+
+function f_dupCheck(){
+	$.ajax({
+		url:"/webproject/day8/emailCheck.jsp",
+		type:"get",
+		data:{email:$("input[name='email']").val()};
+		success:function(responseText){
+			if(responseText==1){
+				message="이미 존재한다(사용불가)";
+			}else{
+				message="사용가능";
+			}
+			
+			$("#message").html(message);
+		}
+	});
+}
+</script>
+
 </head>
 <style>
 #container {
 	width: 800px;
 	margin: 0 auto;
+	padding-bottom: 20px;
+	padding-top: 20px;
 }
 
 h1 {
@@ -34,16 +60,20 @@ h1 {
 
 #required {
 	background-color: lightgray;
+	margin: 0 auto;
+	padding: 15px;
 }
 
 #notrequired {
 	margin: 2 auto;
+	padding: 15px;
+	border: 1px solid black;
 }
 
 legend {
 	text-align: center;
 	font-style: italic;
-	font-size: 25px;
+	font-size: 30px;
 	font-family: "Nanum Pen Script", cursive, "맑은 고딕", 굴림;
 }
 /*
@@ -80,18 +110,17 @@ input:hover {
 	background-color: hotpink;
 } */
 
-.aa label {
-	
-}
 
-/* #submit {
+#submit {
 	text-decoration: none;
 	background-color: black;
 	width: 100px;
 	color: white;
-	padding: 10px;
+	padding: 3px;
+	border:1px solid black;
 	border-radius: 10px;
-	font-family: "굴림";
+	font-family: "Nanum Pen Script", cursive, "맑은 고딕", 굴림;
+	font-size: 30px;
 }
 
 #reset {
@@ -99,10 +128,12 @@ input:hover {
 	background-color: white;
 	width: 100px;
 	color: black;
-	padding: 10px;
+	padding: 3px;
+	border:1px solid black;
 	border-radius: 10px;
-	font-family: "굴림";
-} */
+	font-family: "Nanum Pen Script", cursive, "맑은 고딕", 굴림;
+	font-size: 30px;
+}
 </style>
 <body>
 	<div id="container">
@@ -126,7 +157,9 @@ input:hover {
 				<label>직원번호</label> <input type="number" name="employee_id"
 					id="employee_id"><br> <label>LastName</label> <input
 					type="text" name="last_name"><br> <label>이메일</label> <input
-					type="text" name="email"><br> <label>입사일</label> <input
+					type="email" name="email"><input type="button" value="중복체크" id="btnDupCheck">
+					<span id="message"></span>
+					<br><label>입사일</label> <input
 					type="text" name="hire_date"><br> <label>업무명</label> <input
 					type="text" name="job_id" value="IT_PROG"><br>
 			</fieldset>

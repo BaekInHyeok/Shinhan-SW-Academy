@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="/webproject/js/jquery-3.7.1.min.js"></script>
 <title>직원 목록</title>
 
 <link
@@ -61,22 +62,20 @@ td[data-job~='IT_PROG'] {
 	color: purple;
 }
 
-td[data-hdate |='2005'] {
+td[data-hdate|='2005'] {
 	font-style: italic;
-	color:green;
+	color: green;
 }
 
-td[data-hdate $='07'] {
+td[data-hdate$='07'] {
 	font-style: italic;
-	color:red;
+	color: red;
 }
 
-td[data-phone *='123'] {
+td[data-phone*='123'] {
 	font-style: italic;
-	color:red;
+	color: red;
 }
-
-
 
 h1 {
 	height: 100px;
@@ -86,51 +85,74 @@ h1 {
 	background-color: beige;
 	color: orange;
 }
-/* 
+
 a.decoNone {
 	text-decoration: none;
 	background-color: black;
 	color: white;
 	padding: 10px;
 	border-radius: 10px;
-} */
+}
 
 caption {
 	font-size: 30px;
 }
 
-
 /*tbody 중에 첫 번째 tr*/
-tbody tr:nth-child(1){
-	background-color:orange;
-}
-tbody tr:nth-of-type(4){
-	background-color:lightgreen;
+tbody tr:nth-child(1) {
+	background-color: orange;
 }
 
-td:nth-child(5){
-	border:5px dotted red;
+tbody tr:nth-of-type(4) {
+	background-color: lightgreen;
 }
-td:nth-child(2n){
-	border:5px dotted green;
+
+td:nth-child(5) {
+	border: 5px dotted red;
 }
-td:last-child{
+
+td:nth-child(2n) {
+	border: 5px dotted green;
+}
+
+td:last-child {
 	background-color: purple;
 }
 
-tbody tr:last-child{
-	background-color:lightblue;
+tbody tr:last-child {
+	background-color: lightblue;
 }
 
-.caption::after, .caption::before{
+.caption::after, .caption::before {
 	content: "@@@@@@@";
 }
-
 </style>
+
+<script>
+	$(function(){
+		$("#btn1").on("click",function(){
+			$("tr td:nth-child(4)").filter(function(index, item){
+				 return $(item).text().indexOf($("#email").val())>=0;
+			}).css("color","purple");
+		});
+		
+		$("#btn2").on("click",function(){
+			$("tr td:nth-child(7)").css("color","black");
+			$("tr td:nth-child(7)").filter(function(index,item){
+				return Number($(item).text())>=Number($("#salary").val());
+			}).css("color","blue");
+		});
+	});
+</script>
 <body>
 	<div id="container">
 		<h1>전체 직원 정보</h1>
-		<a class="decoNone btn btn-danger" href="empInsert.jsp" >신규 직원 등록</a>
+		<a class="decoNone btn btn-danger" href="empInsert.jsp">신규 직원 등록</a>
+		<a class="decoNone btn btn-danger" href="empAll.jsp">직원 조회</a>
+		<input type="text" id="email" value="S">
+		<button id="btn1">이메일 찾기</button>
+		<input type="number" id="salary" value="10000">
+		<button id="btn2">급여 찾기</button>
 		<table border="1">
 			<caption class="caption">직원목록</caption>
 			<thead>
@@ -162,7 +184,7 @@ tbody tr:last-child{
 							<%=emp.getFirst_name()%></td>
 					<td data-lname="<%=emp.getLast_name()%>"><%=emp.getLast_name()%></td>
 					<td><%=emp.getEmail()%></td>
-					<td data-phone="<%=emp.getPhone_number() %>"><%=emp.getPhone_number() %>
+					<td data-phone="<%=emp.getPhone_number()%>"><%=emp.getPhone_number()%>
 					<td><%=emp.getCommission_pct()%></td>
 					<td><%=emp.getSalary()%></td>
 					<td data-hdate="<%=emp.getHire_date()%>"><%=emp.getHire_date()%></td>

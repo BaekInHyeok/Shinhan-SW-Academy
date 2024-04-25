@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	window.onload = init;
+	function init() {
+		document.querySelector("#btn1").addEventListener("click", f1);
+		document.querySelector("#btn2").addEventListener("click", f2);
+		document.querySelector("#btn3").addEventListener("click", f3);
+		document.querySelector("#btn4").addEventListener("click", f4);
+		document.querySelector("#btn5").addEventListener("click", f5);
+		document.querySelector("#btn6").addEventListener("click", f6);
+		document.querySelector("#btn7").addEventListener("click", f7);
+		document.querySelector("#btn8").addEventListener("click", f8);
+		document.querySelector("#btn9").addEventListener("click", f9);
+		document.querySelector("#btn10").addEventListener("click", f10);
+		document.querySelector("#btn11").addEventListener("click", f11);
+		document.querySelector("#btn12").addEventListener("click", f12);
+		document.querySelector("#btn13").addEventListener("click", f13);
+		document.querySelector("#btn14").addEventListener("click", f14);
+		document.querySelector("#btn15").addEventListener("click", f15);
+		document.querySelector("#btn16").addEventListener("click", f16);
+	}
+
+	//함수이름을 부여함(선언적 함수)
+	function f1() {
+		var call = function(a, b) {
+			document.querySelector("#here").innerHTML = "<h1>익명함수:" + (a + b)
+					+ "</h1>"
+		};
+
+		call(1, 2);//함수호출
+	}
+	function f2() {
+		(function(a, b) {
+			document.querySelector("#here").innerHTML = "<h1>익명함수(즉시실행함수)</h1>"
+		})(100, 200);
+	}
+	function f3() {
+		document.querySelector("#here").innerHTML = sumAll(1, 2);
+	}
+	//JavaScript에서는 argument 개수가 일치하지 않아도 작동, 보낸 개수보다 적으면 undefined
+	//NaN(Not a Number)
+	//같은 이름의 함수가 있으면 나중에 작성된 것이 적용된다.
+	function sumAll() {
+		var total = 0;
+		for (let i = 0; i < arguments.length; i++) {
+			total += arguments[i];
+		}
+		return total;
+	}
+
+	function f4() {
+		var width = 3;
+		var height = 4;
+		var result = Math.sqrt(sqrt(3) + sqrt(4));
+		document.querySelector("#here").innerHTML = result;
+
+		//내부함수
+		function sqrt(a) {
+			return a * a;
+		}
+	}
+
+	function f5() {
+		var call2 = function() {
+			document.querySelector("#here").innerHTML = "callback함수";
+		};
+		call3(call2);
+	}
+	//callback 함수 : 매개변수로 전달되는 함수
+	function call3(f) {
+		f();
+	}
+
+	function f6() {
+		timer1 = setInterval(call6, 1000)//1초 후마다 call6 함수 호출됨
+	}
+	function call6() {
+		document.querySelector("#here").innerHTML = new Date();
+	}
+
+	function f7() {
+		clearInterval(timer1);
+	}
+	function f8() {
+		//클로저 : 규칙위반
+		//지역변수는 지역을 벗어나면 소멸. return 함수에 지역변수가 들어있으면 사라지지 않고 계속 사용 가능(Closer라고 한다)
+		var result = call8();//call8()의 지역변수 i가 소멸되지 않고 유지됨
+		document.querySelector("#here").innerHTML = result();
+	}
+
+	function call8() {
+		var i = 100;
+		var f = function() {
+			i++;
+			return i;
+		};
+		return f;
+	}
+
+	var result9 = add(0);//함수 갖고 오기
+	var result10 = add(100);
+	function f9() {
+		document.querySelector("#here").innerHTML = result9();//add() 안의 function()을 실행
+		document.querySelector("#here").innerHTML += "<br>" + result10();//add() 안의 function()을 실행
+	}
+	function add(counter) {
+		return function() {
+			counter++;
+			return counter;
+		};
+	}
+
+	function f10() {
+		//i가 3일 때 loop를 빠진다. 
+		for (var i = 0; i < 3; i++) {
+			setTimeout(function() {
+				alert(i);
+			}, 10);
+		}
+
+		//해결 1 : var을 let으로 바꾸기
+		for (let i = 0; i < 3; i++) {
+			//setTimeout(function(){alert(i)},10);
+			(function() {
+				setTimeout(function() {
+					alert(i)
+				}, 10);
+			})(i);
+		}
+		//해결 2 : var로 두고 i를 매개변수로 넘겨 즉시실행함수
+
+		for (var i = 0; i < 3; i++) {
+			setTimeout(function() {
+				alert(i);
+			}, 10);
+
+			(function(arg) {
+				setTimeout(function() {
+					alert(arg);
+				}, 10);
+			})(i);
+		}
+
+		//해결 3 : ES6 forEach
+		var arr = [ 0, 1, 2 ];
+		arr.forEach(function(elet, index, obj) {
+			console.log(elt, index, obj);
+			alert(index);
+		});
+
+	}
+
+	function f11() {
+		var arr = [ 0, 1, 2 ];
+		arr.forEach(function(element, index, array) {
+			alert(element + " >> " + index);
+		});
+	}
+
+	function f12() {
+		var url = "http://localhost:9090/webproject/day6/인코딩연습.jsp?name=홍길동";
+		here.innerHTML = encodeURIComponent(url);
+		here.innerHTML += "<hr>" + decodeURIComponent(here.innerHTML);
+	}
+
+	function f13() {
+		var s = "a=10;b=20;c=a+b;alert(c)";
+		eval(s);
+	}
+
+	function f14() {
+		var su1 = document.querySelector("#su1").value;
+		var su2 = document.querySelector("#su2").value;
+		var op = document.querySelector("#op").value;
+
+		result.value = eval(su1 + op + su2);
+	}
+
+	function f15() {
+		//NaN(Not a Number):숫자와 숫자가 아닌 것을 연산한 경우 return 값으로 나옴
+		//Number:숫자형 문자가 아니면 불가, parseInt : 앞부분 숫자만 가져온다
+		var su1 = document.querySelector("#su1").value;
+		here.innerHTML = su1;
+	}
+	
+	function f16(){
+		call6(100);
+	}
+	function call6(a,b,c){
+		var second = b==undefined?200:b;
+		var third=c||300;
+		here.innerHTML=a+second+third;
+	}
+</script>
+</head>
+<body>
+	<h1>Function</h1>
+	<button id="btn1">익명함수</button>
+	<button id="btn2">즉시실행함수</button>
+	<button id="btn3">가변인자</button>
+	<button id="btn4">내부함수</button>
+	<button id="btn5">콜백함수</button>
+	<button id="btn6">콜백함수(시계)</button>
+	<button id="btn7">시계 멈추기</button>
+	<button id="btn8">함수리턴(클로저 이용)</button>
+	<button id="btn9">Counter(클로저 이용)</button>
+	<button id="btn10">클로저 이용</button>
+	<button id="btn11">클로저 이용(ES6 기능)</button>
+	<button id="btn12">인코딩 디코딩</button>
+	<button id="btn13">eval()</button>
+	<button id="btn15">숫자->문자 변환</button>
+	<button id="btn16">매개변수 default값</button>
+	<h4>
+		<input id="su1" type="number"> <select id="op">
+			<option selected="selected" value="+">더하기</option>
+			<option value="-">빼기</option>
+			<option value="*">곱하기</option>
+			<option value="/">나누기</option>
+		</select> <input id="su2" type="number">
+		<button id="btn14">=</button>
+		<input id="result" type="number" readonly="readonly">
+		</hr>
+
+		
+		<hr>
+		<div id="here">여기</div>
+</body>
+</html>

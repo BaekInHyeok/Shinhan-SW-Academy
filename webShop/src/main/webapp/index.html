@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>JSP/Servlet 시작!!!</h1>
+	<ul>
+		<!-- 절대경로: http://192.168.0.103:9090 -->
+		<!-- 상대경로: ./ >> 현재 index.html은 webShop 바로 아래에 위치함 -->
+		<li><a href="/webShop/FirstServlet?userid=100">First 서블릿 연결(절대)</a></li>
+		<li><a href="First?userid=200">First 서블릿 연결(상대)</a></li>
+		<li>
+			<form action="First" method="get">
+				<input type="text" name="userid" value="300"> <input
+					type="submit" value="get요청">
+			</form>
+		</li>
+		<li>
+			<form action="First" method="post">
+				<input type="text" name="userid" value="400">
+				<input type="submit" value="post요청">
+			</form>
+		</li>
+		
+		<li>
+			<form action="emp/empDetail.do" method="get">
+				<input type="text" name="empid" value="100"> <input
+					type="submit" value="직원정보">
+			</form>
+		</li>
+		<li>
+			<form action="dept/deptDetail.do" method="get">
+				<input type="text" name="deptid" value="10"> <input
+					type="submit" value="부서정보">
+			</form>
+		</li>
+		<li><a href="emp/empList.do">모든 직원 조회</a></li>
+		<li><a href="dept/deptList.do">모든 부서 조회</a></li>
+		<li><a href="dept/deptInsert.do">부서 입력</a>
+		
+	</ul>
+
+</body>
+</html>
