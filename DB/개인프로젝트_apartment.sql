@@ -148,7 +148,10 @@ update store set store_name=? where store_id=?;
 --»óÁ¡ »èÁ¦
 delete from store where store_id=?;
 
+delete from resident where resident_id=0;
+commit;
 
+update resident set resident_name='±èÃ¶¼ö', resident_phone = '010-1913-2939' where resident_id=124141;
 
 select * from resident;
 select * from facility;
