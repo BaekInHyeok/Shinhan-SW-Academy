@@ -27,6 +27,7 @@ public class resInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		RequestDispatcher rd = request.getRequestDispatcher("resInsert.jsp");
 		rd.forward(request, response);
 	}
@@ -37,9 +38,7 @@ public class resInsertController extends HttpServlet {
 		int result = rService.resInsert(res);
 		
 		request.setAttribute("message", "입주자 정보 등록됨");
-		
-		RequestDispatcher rd = request.getRequestDispatcher("result.jsp");
-		rd.forward(request, response);
+		response.addHeader("Refresh", "0;respage.do");
 	}
 	
 	private residentDTO makeRes(HttpServletRequest request){
@@ -57,7 +56,7 @@ public class resInsertController extends HttpServlet {
 		int resdong = convertInt(request.getParameter("resident_dong"));
 		int resho = convertInt(request.getParameter("resdient_ho"));
 		Date resdate = DateUtil.getSQLDate(request.getParameter("resident_date"));
-		int resowner = convertInt(request.getParameter("resident_owner"));
+		String resowner = request.getParameter("resident_owner");
 		String rescar = request.getParameter("resident_car");
 		String resfee = request.getParameter("resident_fee");
 				

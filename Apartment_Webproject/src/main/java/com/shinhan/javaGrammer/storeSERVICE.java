@@ -22,13 +22,13 @@ public class storeSERVICE {
 	}
 
 	//4.상가 정보 수정
-	public int strUpdate(int select, int strid, Object obj) {
+	public int strUpdate(storeDTO str) {
 		// TODO Auto-generated method stub
-		return strDAO.strUpdate(select, strid, obj);
+		return strDAO.strUpdate(str);
 	}
 
 	//4.상가 정보 삭제
-	public int resDelete(int strid) {
+	public int strDelete(int strid) {
 		// TODO Auto-generated method stub
 		return strDAO.strDelete(strid);
 	}
@@ -36,6 +36,14 @@ public class storeSERVICE {
 	public List<storeDTO> findIsOpen() {
 		// TODO Auto-generated method stub
 		return strDAO.findISOpen();
+	}
+	
+	public List<storeDTO> selectAll(){
+		return strDAO.selectAll();
+	}
+	
+	public List<String> allType(){
+		return strDAO.allType();
 	}
 
 }

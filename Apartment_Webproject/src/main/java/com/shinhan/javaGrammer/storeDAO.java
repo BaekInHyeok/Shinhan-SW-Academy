@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,28 @@ public class storeDAO {
 	PreparedStatement pst;// Statement를 상속받음, 바인딩 변수 지원
 	ResultSet rs;
 
+	public List<storeDTO> selectAll(){
+		List<storeDTO> strlist = new ArrayList<storeDTO>();
+		String sql = "select * from store";
+
+		conn = DBUtil.dbConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				storeDTO str = makeRs(rs);
+				strlist.add(str);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		
+		return strlist;
+	}
+	
 	// 1.상점ID로 상점 정보 조회
 	public storeDTO findBYID(int strID) {
 		storeDTO str = null;
@@ -104,54 +127,22 @@ public class storeDAO {
 	}
 
 	// 4.상가 정보 수정
-	public int strUpdate(int select, int strid, Object obj) {
+	public int strUpdate(storeDTO str) {
 		int result = 0;
 		conn = DBUtil.dbConnection();
 		try {
-			switch (select) {
-			case 1 -> {
-				String sql = "update store set store_name=? where store_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, strid);
-			}
-			case 2 -> {
-				String sql = "update store set store_owner=? where store_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, strid);
-			}
-			case 3 -> {
-				String sql = "update store set store_phone=? where store_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, strid);
-			}
-			case 4 -> {
-				String sql = "update store set store_type=? where store_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, strid);
-			}
-			case 5 -> {
-				String sql = "update store set store_start_time=? where store_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, strid);
-
-			}
-			case 6 -> {
-				String sql = "update store set store_end_time=? where store_id=?";
-
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, strid);
-
-			}
-			default -> {
-			}
-			}
-
+			String sql = "update store set store_bussiness_number = ?, store_name=?, store_owner=?, store_phone=?, store_type=?, store_startdate=?, store_start_time=?, store_end_time=? where store_id=?";
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, str.getSTORE_BUSSINESS_NUMBER());
+			pst.setString(2, str.getSTORE_NAME());
+			pst.setString(3, str.getSTORE_OWNER());
+			pst.setString(4, str.getSTORE_PHONE());
+			pst.setString(5, str.getSTORE_TYPE());
+			pst.setDate(6, str.getSTORE_STARTDATE());
+			pst.setString(7, str.getSTORE_START_TIME());
+			pst.setString(8, str.getSTORE_END_TIME());
+			pst.setInt(9, str.getSTORE_ID());
+			
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -207,6 +198,16 @@ public class storeDAO {
 				//Timestamp로 변환
 				Timestamp start = DateUtil.getSQLDateTime(daystart);
 				Timestamp end = DateUtil.getSQLDateTime(dayend);
+				
+				//야간 영업을 하는 경우에 영업종료시간의 날짜를 다음 날짜로 이동 
+				if(end.before(start)) {
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(end);
+					
+					cal.add(Calendar.DAY_OF_MONTH, 1);
+					
+					end = new java.sql.Timestamp(cal.getTimeInMillis());
+				}
 
 				// 현재 시간을 Timestamp 형태로 가져오기
 				Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
@@ -227,6 +228,30 @@ public class storeDAO {
 		return OpenedStoreList;
 	}
 
+	//모든 상점 유형 출력(중복 X)
+	public List<String> allType(){
+		List<String> typeList = new ArrayList<String>();
+		String sql = "select distinct store_type from store";
+		
+		try {
+			conn = DBUtil.dbConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while (rs.next()) {
+				String type = rs.getString("STORE_TYPE");
+				typeList.add(type);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return typeList;
+	}
+	
 	private storeDTO makeRs(ResultSet rs) throws SQLException {
 		storeDTO str = new storeDTO();
 

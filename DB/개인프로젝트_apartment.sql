@@ -9,16 +9,16 @@ create table RESIDENT(
     RESIDENT_DATE DATE not null,
     RESIDENT_CAR varchar(20),
     RESIDENT_FEE varchar(20),
-    RESIDENT_OWNER number not null 
+    RESIDENT_OWNER varchar(10) not null 
 );
 
 --Table:공용시설--
 drop table facility;
 create table FACILITY(
     FACILITY_ID number primary key,
-    FACILITY_NAME varchar2(20) not null,
+    FACILITY_NAME varchar2(50) not null,
     FACILITY_DATE DATE not null,
-    FACILITY_TYPE varchar2(20) not null,
+    FACILITY_TYPE varchar2(30) not null,
     FACILITY_START_TIME varchar2(20) not null,
     FACILITY_END_TIME varchar2(20) not null,
     FACILITY_MANAGER_ID number
@@ -157,3 +157,28 @@ select * from resident;
 select * from facility;
 select * from worker;
 select * from store;
+
+select * from facility where facility_manager_id=0;
+
+SELECT *
+FROM WORKER
+WHERE WORKER_ID NOT IN (SELECT FACILITY_MANAGER_ID FROM FACILITY);
+
+UPDATE FACILITY
+SET FACILITY_MANAGER_ID = 0
+WHERE FACILITY_MANAGER_ID IN (SELECT WORKER_ID FROM WORKER where WORKER_ID=29385);
+commit;
+
+SELECT * from FACILITY F where F.FACILITY_MANAGER_ID=136613;
+
+update worker set WORKER_WORKPLACE_ID=0 where WORKER_WORKPLACE_ID IN (select facility_id from facility where facility_id=13);
+commit;
+
+update store set STORE_BUSSINESS_NUMBER='100-20-20395' where STORE_ID=12966;
+select distinct worker_work from worker;
+select distinct facilty_name from facility;
+
+select * from resident where resident_dong=105 and resident_ho=4001 and resident_owner='O';
+
+update worker set worker_id=111 where worker_id=136613;
+update store set store_id=1788 where store_id=12966;

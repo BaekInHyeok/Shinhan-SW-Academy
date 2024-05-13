@@ -29,7 +29,7 @@ public class workerDAO {
 			rs = st.executeQuery(sql);
 
 			if (rs.next()) {
-				wrk = makeRes(rs);
+				wrk = makeWrk(rs);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -44,9 +44,9 @@ public class workerDAO {
 	// 2.업무명을 입력하여 해당 업무를 하는 근로자들 목록 찾기
 	public List<wrkINworkDTO> findByWork(String work) {
 		List<wrkINworkDTO> wrkINworklist = new ArrayList<wrkINworkDTO>();
-		String sql = "SELECT w.WORKER_NAME, w.WORKER_AGE, w.WORKER_GENDER, w.WORKER_PHONE, f.FACILITY_NAME"
+		String sql = "SELECT w.WORKER_ID, w.WORKER_NAME, w.WORKER_AGE, w.WORKER_GENDER, w.WORKER_PHONE, f.FACILITY_NAME"
 				+ " FROM WORKER w"
-				+ " JOIN FACILITY f ON w.WORKER_WORKPLACE_ID = f.FACILITY_ID"
+				+ " LEFT OUTER JOIN FACILITY f ON w.WORKER_WORKPLACE_ID = f.FACILITY_ID"
 				+ " where w.WORKER_WORK = '"+work+"'";
 
 		conn = DBUtil.dbConnection();
@@ -99,64 +99,23 @@ public class workerDAO {
 	}
 
 	// 4.근로자 정보 수정
-	public int wrkUpdate(int key, int wrkid, Object obj) {
+	public int wrkUpdate(workerDTO wkr) {
 		int result = 0;
 		conn = DBUtil.dbConnection();
 
 		try {
-
-			switch (key) {
-			case 1 -> {// 근로자 이름
-				String sql = "update worker set worker_name = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, wrkid);
-			}
-			case 2 -> {// 근로자 나이
-				String sql = "update worker set WORKER_AGE = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, wrkid);
-			}
-			case 3 -> {// 근로자 성별
-				String sql = "update worker set WORKER_GENDER = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, wrkid);
-			}
-			case 4 -> {// 근로자 전화번호
-				String sql = "update worker set WORKER_PHONE = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, wrkid);
-			}
-			case 5 -> {// 근로자 근무시작일
-				String sql = "update worker set WORKER_HIREDATE = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setDate(1, (Date) obj);
-				pst.setInt(2, wrkid);
-			}
-			case 6 -> {// 담당시설 ID
-				String sql = "update worker set WORKER_WORKPLACE_ID = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setInt(1, (int) obj);
-				pst.setInt(2, wrkid);
-			}
-			case 7 -> {// 담당업무
-				String sql = "update worker set WORKER_WORK = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, obj.toString());
-				pst.setInt(2, wrkid);
-			}
-			case 8 -> {// 급여
-				String sql = "update worker set WORKER_SALARY = ? where worker_id=?";
-				pst = conn.prepareStatement(sql);
-				pst.setInt(1, (int) obj);
-				pst.setInt(2, wrkid);
-			}
-			default -> {
-			}
-			}
+			String sql = "update worker set WORKER_NAME = ?, WORKER_AGE = ?, WORKER_GENDER = ?, WORKER_PHONE = ?, WORKER_HIREDATE = ?, WORKER_WORKPLACE_ID = ?, WORKER_WORK = ?, WORKER_SALARY = ? where WORKER_ID=?";
+			
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, wkr.getWORKER_NAME());
+			pst.setInt(2, wkr.getWORKER_AGE());
+			pst.setString(3, wkr.getWORKER_GENDER());
+			pst.setString(4, wkr.getWORKER_PHONE());
+			pst.setDate(5, wkr.getWORKER_HIREDATE());
+			pst.setInt(6, wkr.getWORKER_WORKPLACE_ID());
+			pst.setString(7, wkr.getWORKER_WORK());
+			pst.setInt(8, wkr.getWORKER_SALARY());
+			pst.setInt(9, wkr.getWORKER_ID());
 
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -166,6 +125,49 @@ public class workerDAO {
 			DBUtil.dbDisconnect(conn, pst, rs);
 		}
 
+		return result;
+	}
+	
+	//4-1.관리담당자로 배정받은 근로자의 담당시설ID을 자동으로 바꾸기
+	public int mgrUpdate(int mgrID, int facID) {
+		int result = 0;
+		conn = DBUtil.dbConnection();
+		
+		String sql = "update worker set WORKER_WORKPLACE_ID = ? where WORKER_ID=?";
+		try {
+			pst=conn.prepareStatement(sql);
+			pst.setInt(1, facID);
+			pst.setInt(2, mgrID);
+			
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, pst, rs);
+		}
+		
+		
+		return result;
+	}
+	
+	//4-2.근무하고 있던 시설이 삭제되는 경우 근로자의 근무시설ID를 0으로 바꾸기
+	public int eraseWorkplaceId(int workplaceid) {
+		int result=0;
+		conn = DBUtil.dbConnection();
+		String sql =  "update worker set WORKER_WORKPLACE_ID=0"
+				+ " where WORKER_WORKPLACE_ID IN (select facility_id from facility where facility_id=?)";
+		
+		try {
+			pst= conn.prepareStatement(sql);
+			pst.setInt(1, workplaceid);
+			
+			result=pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 
@@ -189,8 +191,80 @@ public class workerDAO {
 
 		return result;
 	}
+	
+	//6.전체 근로자 목록 출력
+	public List<workerDTO> selectAll(){
+		List<workerDTO> workerList = new ArrayList<workerDTO>();
+		String sql = "select * from worker";
+		
+		try {
+			conn = DBUtil.dbConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				workerDTO wrk = makeWrk(rs);
+				workerList.add(wrk);
+			}
 
-	private workerDTO makeRes(ResultSet rs) throws SQLException {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return workerList;
+	}
+	
+	//6-1.시설 매니저를 맡고 있는 근로자들을 제외한 근로자 목록을 출력하기
+	public List<workerDTO> selectNotMgrList(){
+		List<workerDTO> workerNotMgrList = new ArrayList<workerDTO>();
+		String sql = "SELECT * FROM WORKER WHERE WORKER_ID NOT IN (SELECT FACILITY_MANAGER_ID FROM FACILITY)";
+		
+		try {
+			conn = DBUtil.dbConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				workerDTO wrk = makeWrk(rs);
+				workerNotMgrList.add(wrk);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return workerNotMgrList;
+	}
+	
+	//모든 업무명 출력(중복 X)
+	public List<String> allWork(){
+		List<String> workList = new ArrayList<String>();
+		String sql = "select distinct worker_work from worker";
+		try {
+			conn = DBUtil.dbConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while (rs.next()) {
+				String job = rs.getString("WORKER_WORK");
+				workList.add(job);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}
+		return workList;
+	}
+	
+	
+	
+
+	private workerDTO makeWrk(ResultSet rs) throws SQLException {
 		workerDTO wrk = new workerDTO();
 
 		wrk.setWORKER_ID(rs.getInt("WORKER_ID"));
@@ -208,6 +282,7 @@ public class workerDAO {
 	private wrkINworkDTO makeWrkwork(ResultSet rs) throws SQLException {
 		wrkINworkDTO wrkfac = new wrkINworkDTO();
 
+		wrkfac.setWORKER_ID(rs.getInt("WORKER_ID"));
 		wrkfac.setWORKER_NAME(rs.getString("WORKER_NAME"));
 		wrkfac.setWORKER_AGE(rs.getInt("WORKER_AGE"));
 		wrkfac.setWORKER_GENDER(rs.getString("WORKER_GENDER"));

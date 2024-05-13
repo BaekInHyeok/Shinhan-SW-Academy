@@ -18,14 +18,22 @@ public class ResIdCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int resid = Integer.parseInt(request.getParameter("resid"));
-		System.out.println(resid);
-		residentSERVICE rService = new residentSERVICE();
+		String message=null;
+		int idSize=request.getParameter("resid").length();
 		
-		String message="이미 존재하는 ID입니다.";
-		residentDTO res = rService.findBYID(resid);
-		if(res==null) {
-			message="사용 가능한 ID입니다.";
+		if(idSize!=5) {
+			message="2";
+		}else {
+			int resid = Integer.parseInt(request.getParameter("resid"));
+			System.out.println(resid);
+			residentSERVICE rService = new residentSERVICE();
+			residentDTO res = rService.findBYID(resid);
+			
+			if(res==null) {
+				message="0";
+			}else {
+				message="1";
+			}
 		}
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().append(message);

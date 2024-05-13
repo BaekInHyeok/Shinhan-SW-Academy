@@ -36,12 +36,12 @@ public class residentSERVICE {
 	}
 
 	// 6.세대주 중복을 막기 위해 세대주 존재 여부 확인
-	public int isOwnerExist(int dong, int ho) {
-			return resDAO.isOwnerExist(dong, ho);
+	public residentDTO isOwnerExist(int dong, int ho) {
+		return resDAO.isOwnerExist(dong, ho);
 	}
 
 	// 7. 아파트 단지 전체 주민 목록
-	public List<residentDTO> selectAll(){
+	public List<residentDTO> selectAll() {
 		return resDAO.selectAll();
 	}
 

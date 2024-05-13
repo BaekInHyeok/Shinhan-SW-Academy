@@ -86,7 +86,7 @@ public class residentDAO {
 			pst.setDate(6, res.getResident_date());
 			pst.setString(7, res.getResident_car());
 			pst.setString(8, res.getResident_fee());
-			pst.setInt(9, res.getResident_owner());
+			pst.setString(9, res.getResident_owner());
 
 			result = pst.executeUpdate();
 
@@ -120,11 +120,11 @@ public class residentDAO {
 			pst.setInt(3, res.getResident_dong());
 			pst.setInt(4, res.getResident_ho());
 			pst.setDate(5, res.getResident_date());
-			pst.setInt(6, res.getResident_owner());
+			pst.setString(6, res.getResident_owner());
 			pst.setString(7, res.getResident_car());
 			pst.setString(8, res.getResident_fee());
 			pst.setInt(9, res.getResident_id());
-			
+
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -159,11 +159,27 @@ public class residentDAO {
 	}
 
 	// 6.세대주 중복을 막기 위해 세대주 존재 여부 확인
-	public int isOwnerExist(int dong, int ho) {
-		int isExist = 0;
-		String sql = "select resident_owner" + " from resident" + " where RESIDENT_DONG = ? and RESIDENT_HO = ?";
+	public residentDTO isOwnerExist(int dong, int ho) {
+		residentDTO res = null;
+		conn = DBUtil.dbConnection();
+		String sql = "select * from resident where resident_dong=? and resident_ho=? and resident_owner='O'";
 
-		return isExist;
+		try {
+			pst = conn.prepareStatement(sql);
+
+			pst.setInt(1, dong);
+			pst.setInt(2, ho);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				res = makeRes(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	// 7. 아파트 단지 전체 주민 목록
@@ -200,7 +216,7 @@ public class residentDAO {
 		res.setResident_date(rs.getDate("resident_date"));
 		res.setResident_car(rs.getString("resident_car"));
 		res.setResident_fee(rs.getString("resident_fee"));
-		res.setResident_owner(rs.getInt("resident_owner"));
+		res.setResident_owner(rs.getString("resident_owner"));
 
 		return res;
 

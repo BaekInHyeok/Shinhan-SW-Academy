@@ -90,15 +90,6 @@ public class residentDAO {
 			pst.setInt(9, res.getResident_owner());
 
 			result = pst.executeUpdate();
-
-			if (result == 0) {
-				try {
-					throw new CustomException("해당 세대에는 이미 세대주가 있습니다.");
-				} catch (CustomException e) {
-
-//					e.getMessage();
-				}
-			}
 		} catch (SQLException e) {// 여기서 세대주 중복에 대한 커스텀 예외처리
 			System.out.println(e.getMessage());
 		} finally {

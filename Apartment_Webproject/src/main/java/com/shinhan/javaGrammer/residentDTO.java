@@ -15,7 +15,7 @@ public class residentDTO {
 	private Date resident_date;
 	private String resident_car;
 	private String resident_fee;
-	private int resident_owner;
+	private String resident_owner;
 	
 	@Override
 	public String toString() {

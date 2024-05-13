@@ -7,19 +7,81 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ -->
 
+<link rel="stylesheet" href="../static/css/bootstrap.css">
+<link rel="stylesheet" href="../static/css/bootstrap-icons.min.css">
+<link rel="stylesheet" href="../static/css/prism-okaidia.css">
+<link rel="stylesheet" href="../static/css/custom.min.css">
 <style>
+body {
+	background: url('../static/images/apartment.jpg') left top no-repeat
+		fixed;
+	background-size: cover;
+}
+
+#container {
+	background-color: white;
+	margin: 0 auto;
+	padding: 30px;
+	width: 1400px;
+	height: 700px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 30px;
+	text-align: center;
+}
+
 #resList {
 	width: 100%;
 	margin: 0 auto;
-	border: 1px solid black;
-	padding: 20px;
-	margin: 0 auto;
+	border-collapse: collapse;
+	justify-center: center;
+	align-items: flex-start;
+}
+
+#restable {
+	width: 90%;
+}
+
+h1 {
+	font-size: 50px;
+	text-align: center;
+	margin: 20px;
+}
+
+select {
+	width: 200px;
+	height: 40px;
+	font-size: 20px;
+	border-radius: 10px;
+}
+
+option {
+	font-size: 20px;
+	border-radius: 20px;
+}
+
+#btn1, #btn2, #btn3 {
+	width: 200px;
+	height: 40px;
+	font-size: 20px;
+	border-radius: 10px;
+}
+
+#btn1, #btn2{
+	margin-bottom: 10px;
+}
+#btn3 {
+	margin-top: 30px;
 }
 
 #updatebtn, #deletebtn {
@@ -27,9 +89,9 @@
 }
 
 td {
-	border-left: 1px solid black; /* 왼쪽 세로줄만 그리기 */
+	border-bottom: 1px solid black; /* 왼쪽 세로줄만 그리기 */
 	padding: 8px;
-	text-align: left;
+	text-align: center;
 	background-color: white;
 	font-size: 20px;
 }
@@ -40,49 +102,98 @@ td:last-child, td:nth-last-child(2) {
 }
 
 th {
-	background-color: black;
-	color: white;
+	background-color: #78d6b1;
+	color: #ffffff;
 	font-size: 20px;
-	padding: 5px;
-	margin: 3px;
+	position: sticky; /* 고정 헤더를 만듭니다. */
+	top: 0; /* 고정 헤더를 상단에 고정시킵니다. */
+	z-index: 1; /* 다른 요소 위로 헤더를 배치합니다. */
+}
+
+th, tr {
+	padding: 10px;
+}
+
+#navbar {
+	font-size: 30px;
+	color: white;
+}
+
+.btn-primary {
+	height: 50px;
+	font-size: 25px;
+}
+
+#topbar {
+	height: 80px;
+}
+
+.table-wrapper {
+	overflow-y: auto;
+	height: 300px; /* 테이블이 화면에 가득 차도록 최대 높이 설정 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.addResbtn {
+	text-align: right;
+}
+
+.changeListBar {
+	display: flex;
+	justify-content: space-between;
+}
+
+.allSearch {
+	text-align: left;
+	margin-left: 55px;
+}
+
+.selectsearch {
+	text-align: left;
 }
 </style>
 </head>
 <body>
-	<div id="resList">
-		<table>
-			<thead>
-				<tr>
-					<th>입주민ID</th>
-					<th>입주민명</th>
-					<th>H.P</th>
-					<th>동</th>
-					<th>호</th>
-					<th>입주일</th>
-					<th>보유차량</th>
-					<th>관리비</th>
-					<th>세대주 여부</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<c:forEach var="res" items="${resList}">
+	<div id="resList" class="table-wrapper">
+			<table id="restable">
+				<thead>
 					<tr>
-						<td>${res.resident_id}</td>
-						<td>${res.resident_name}</td>
-						<td>${res.resident_phone}</td>
-						<td>${res.resident_dong}</td>
-						<td>${res.resident_ho}</td>
-						<td>${res.resident_date}</td>
-						<td>${res.resident_car}</td>
-						<td>${res.resident_fee}</td>
-						<td>${res.resident_owner}</td>
-						<td><button id="updatebtn" onclick="location.href='resUpdate.do?resid=${res.resident_id}'">수정</button>
-						<td><button id="deletebtn" onclick="location.href='resDelete.do?resid=${res.resident_id}'">삭제</button>
+						<th>입주민ID</th>
+						<th>입주민명</th>
+						<th>H.P</th>
+						<th>동</th>
+						<th>호</th>
+						<th>입주일</th>
+						<th>보유차량</th>
+						<th>관리비</th>
+						<th>세대주 여부</th>
+						<th></th>
+						<th></th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
+				</thead>
+
+				<tbody>
+					<c:forEach var="res" items="${resList}">
+						<tr>
+							<td>${res.resident_id}</td>
+							<td>${res.resident_name}</td>
+							<td>${res.resident_phone}</td>
+							<td>${res.resident_dong}</td>
+							<td>${res.resident_ho}</td>
+							<td>${res.resident_date}</td>
+							<td>${res.resident_car}</td>
+							<td>${res.resident_fee}</td>
+							<td>${res.resident_owner}</td>
+							<td><button id="updatebtn" class="btn btn-info"
+									onclick="location.href='resUpdate.do?resid=${res.resident_id}'">수정</button>
+							<td><button id="deletebtn" class="btn btn-danger"
+									onclick="location.href='resDelete.do?resid=${res.resident_id}'">삭제</button>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 </body>
 </html>

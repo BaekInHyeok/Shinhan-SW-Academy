@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class wrkINworkDTO {
+	private int WORKER_ID;
 	private String WORKER_NAME;
 	private int WORKER_AGE;
 	private String WORKER_GENDER;

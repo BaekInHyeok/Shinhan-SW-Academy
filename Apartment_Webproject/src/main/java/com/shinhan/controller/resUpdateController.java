@@ -38,10 +38,9 @@ public class resUpdateController extends HttpServlet {
 		residentDTO res = makeRes(request);
 		int result = rService.resUpdate(res);
 
-		request.setAttribute("message", "입주자 정보 등록됨");
+		request.setAttribute("message", "입주자 정보 수정됨");
 
-		RequestDispatcher rd = request.getRequestDispatcher("result.jsp");
-		rd.forward(request, response);
+		response.addHeader("Refresh", "0;respage.do");
 	}
 
 	private residentDTO makeRes(HttpServletRequest request) {
@@ -59,7 +58,7 @@ public class resUpdateController extends HttpServlet {
 		int resdong = convertInt(request.getParameter("resident_dong"));
 		int resho = convertInt(request.getParameter("resdient_ho"));
 		Date resdate = DateUtil.getSQLDate(request.getParameter("resident_date"));
-		int resowner = convertInt(request.getParameter("resident_owner"));
+		String resowner = request.getParameter("resident_owner");
 		String rescar = request.getParameter("resident_car");
 		String resfee = request.getParameter("resident_fee");
 
