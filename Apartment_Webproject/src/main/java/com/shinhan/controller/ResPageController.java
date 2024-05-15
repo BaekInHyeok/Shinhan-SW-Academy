@@ -30,6 +30,8 @@ public class ResPageController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("residentInfo.jsp");
 		rd.forward(request, response);
 		return;
+		
+		
 	}
 
 }
