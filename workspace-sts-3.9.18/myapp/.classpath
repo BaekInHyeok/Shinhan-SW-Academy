@@ -26,6 +26,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/University/GitHub/Shinhan-SW-Academy/SpringEducation/sts-bundle/sts-3.9.18.RELEASE/lombok.jar"/>
-	<classpathentry kind="lib" path="C:/oraclexe/app/oracle/product/11.2.0/server/jdbc/lib/ojdbc6_g.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
