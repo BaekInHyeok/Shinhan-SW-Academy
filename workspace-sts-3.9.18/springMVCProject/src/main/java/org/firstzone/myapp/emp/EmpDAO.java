@@ -28,11 +28,6 @@ public class EmpDAO {
 	@Qualifier("dataSource")
 	DataSource ds;
 	
-	/*
-	 * //2.생성자 이용하기 //@Autowired public EmpDAO(DataSource ds) { this.ds=ds; }
-	 * 
-	 * //3.setter넣기 //@Autowired public void setDs(DataSource ds) { this.ds=ds; }
-	 */
 	
 	Connection conn;
 	Statement st;
@@ -127,7 +122,6 @@ public class EmpDAO {
 		return emplist;
 	}
 
-	// 1.吏곸썝 ?쟾泥? 議고쉶
 	public List<EmpDTO> selectAll() {
 		List<EmpDTO> emplist = new ArrayList<EmpDTO>();
 		String sql = "select * from employees";
@@ -170,7 +164,6 @@ public class EmpDAO {
 		return joblist;
 	}
 
-	// 2.?듅?젙 吏곸썝?뿉 ???븳 ?긽?꽭蹂닿린
 	public EmpDTO selectById(int empId) throws ClassNotFoundException, SQLException {
 		EmpDTO emp = null;
 
@@ -192,7 +185,7 @@ public class EmpDAO {
 		return emp;
 	}
 
-	// 3. ?듅?젙 遺??꽌?쓽 ?쟾泥? 吏곸썝 紐⑸줉 議고쉶
+	
 	public List<EmpDTO> selectByDepId(int eid) {
 		List<EmpDTO> emplist = new ArrayList<EmpDTO>();
 		String sql = "select * from employees where department_id=?";
@@ -216,10 +209,9 @@ public class EmpDAO {
 		return emplist;
 	}
 
-	// 4. ?듅?젙 Job 吏곸썝 紐⑸줉 議고쉶
+	
 	public List<EmpDTO> selectByJobId(String jobId) {
 		List<EmpDTO> emplist = new ArrayList<EmpDTO>();
-//		String sql = "select * from employees where job_id=" + "'" + jobId + "'";
 		String sql = "select * from employees where job_id= ?||'%'";// ??뒗 諛붿씤?뵫 蹂??닔
 
 		try {
@@ -242,8 +234,6 @@ public class EmpDAO {
 		return emplist;
 	}
 
-	// 5.?떎?뼇?븳 議곌굔?쑝濡? 議고쉶?븯湲?
-	// 遺??꽌蹂?, 吏곸콉蹂?, ?엯?궗?씪蹂?(>=), 湲됱뿬(>=)
 	public List<EmpDTO> selectByCondition(int deptid, String jobid, Date hdate, int salary) {
 		List<EmpDTO> emplist = new ArrayList<EmpDTO>();
 		String sql = "select *" + " from employees" + " where department_id= ?" + " and job_id = ?"
@@ -272,7 +262,6 @@ public class EmpDAO {
 		return emplist;
 	}
 
-	// 6.?엯?젰(Insert)
 	public int empInsert(EmpDTO emp) {
 		int result = 0;
 		String sql = "insert into employees values(?,?,?,?,?,?,?,?,?,?,?)";
@@ -303,13 +292,11 @@ public class EmpDAO {
 		return result;
 	}
 
-	// 7.?닔?젙(Update)
 	public int empUpdate(EmpDTO emp) {
 		int result = 0;
 		String sql = "update employees" + " set" + " FIRST_NAME=?," + "LAST_NAME=?," + "EMAIL=?," + "PHONE_NUMBER=?,"
 				+ "HIRE_DATE=?," + "JOB_ID=?," + "SALARY=?," + "COMMISSION_PCT=?," + "MANAGER_ID=?," + "DEPARTMENT_ID=?"
 				+ " where EMPLOYEE_ID=?";
-		// 而ㅻ컠?? ?옄?룞?쑝濡? 吏꾪뻾?맖 : setAutoComit(true) ?긽?깭
 		try {
 			conn = ds.getConnection();
 			pst = conn.prepareStatement(sql);
@@ -336,11 +323,9 @@ public class EmpDAO {
 		return result;
 	}
 
-	// 8.?궘?젣(Delete)
 	public int empDelete(int empid) {
 		int result = 0;
 		String sql = "delete from employees where EMPLOYEE_ID=?";
-		// 而ㅻ컠?? ?옄?룞?쑝濡? 吏꾪뻾?맖 : setAutoComit(true) ?긽?깭
 		try {
 			conn = ds.getConnection();
 			pst = conn.prepareStatement(sql);
@@ -356,7 +341,6 @@ public class EmpDAO {
 		return result;
 	}
 
-	// 9.吏곸썝踰덊샇瑜? ?엯?젰諛쏆븘 ?빐?떦 吏곸썝?쓽 ?젙蹂?(?씠由?, 吏곸콉, 湲됱뿬)瑜? 由ы꽩
 	public Map<String, Object> empInfo(int empid) {
 		Map<String, Object> empMap = new HashMap<>();
 		String fname = null, job = null;
@@ -388,7 +372,6 @@ public class EmpDAO {
 		return empMap;
 	}
 
-	// 10.吏곸썝踰덊샇媛? ?뱾?뼱?삤硫? 吏곸썝?쓽 蹂대꼫?뒪瑜? return?븯?뒗 ?븿?닔瑜? ?샇異쒗븳?떎
 	public double callFunction(int empid) {
 		double bonus = 0;
 

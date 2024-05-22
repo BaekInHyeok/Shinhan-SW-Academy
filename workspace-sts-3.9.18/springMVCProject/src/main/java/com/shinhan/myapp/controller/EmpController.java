@@ -42,7 +42,7 @@ public class EmpController {
 		try {
 			model.addAttribute("empInfo",eService.selectById(empid2)) ;
 			model.addAttribute("deptlist",dService.selectAll());
-			model.addAttribute("mlist",eService.selectAllManger());
+			model.addAttribute("mlist",eService.selectAllManager());
 			model.addAttribute("joblist",eService.selectAllJob());
 			
 		} catch (ClassNotFoundException e) {
@@ -58,7 +58,7 @@ public class EmpController {
 	@GetMapping("/empInsert.do")
 	public void insert(Model model) {
 		model.addAttribute("deptlist",dService.selectAll());
-		model.addAttribute("mlist",eService.selectAllManger());
+		model.addAttribute("mlist",eService.selectAllManager());
 		model.addAttribute("jlist",eService.selectAllJob());
 	}
 	
@@ -71,7 +71,7 @@ public class EmpController {
 	
 	@GetMapping("/empIdCheck.do")
 	@ResponseBody
-	public String test(Integer empid) {
+	public String test(int empid) {
 		System.out.println(empid);
 		EmpDTO emp=null;
 		try {
@@ -87,12 +87,19 @@ public class EmpController {
 		return "1";
 	}
 	
-	@GetMapping("/empdelete.do")
+	@PostMapping("/empDetail.do")
+	public String updateDB(EmpDTO emp) {
+		eService.empUpdate(emp);
+		return "redirect:empAll.do";
+	}
+	
+	@GetMapping("/empDelete.do")
 	public String delete(Integer empid) {
 		eService.empDelete(empid);
 		
 		return "redirect:empAll.do";
 	}
+	
 	
 	
 	

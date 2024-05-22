@@ -1,4 +1,4 @@
-package com.shinhan.myapp.model;
+package com.shinhan.myapp.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
@@ -14,10 +17,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class BoardDAO {
+import com.shinhan.myapp.util.DBUtil;
 
+
+//*****1.정의하기
+@Repository("bDAO")
+public class BoardDAO {
+	
+	//타입이 같으면 자동 injection
 	@Autowired
+	//같은 타입이 여러 개 있으면 이름을 비교하여 같은 이름 사용
 	@Qualifier("dataSource")
 	DataSource ds;
 	
@@ -39,7 +48,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil.dbDisconnect(conn, pst, rs);
 		}		
 		return result;
 	}
@@ -61,7 +70,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil.dbDisconnect(conn, pst, rs);
 		}		
 		return result;
 	}
@@ -82,7 +91,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil.dbDisconnect(conn, pst, rs);
 		}		
 		return result;
 	}
@@ -105,7 +114,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//DBUtil.dbDisconnect(conn, pst, rs);
+			DBUtil.dbDisconnect(conn, pst, rs);
 		}		
 		return board;
 	}
@@ -127,7 +136,7 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//DBUtil.dbDisconnect(conn, st, rs);
+			DBUtil.dbDisconnect(conn, st, rs);
 		}		
 		return boardList;
 	}
@@ -141,5 +150,21 @@ public class BoardDAO {
 		board.setTitle(rs.getString("title"));
 		board.setWriter(rs.getString("writer"));
 		return board;
+	}
+
+	public int deleteBoardArray(Integer[] checkBno) {
+		String sql = "delete from TBL_BOARD where bno in (%s)";
+		sql = String.format(sql, Arrays.stream(checkBno).map(String::valueOf).collect(Collectors.joining(",")));
+		try {
+			conn = ds.getConnection();
+			st=conn.createStatement();
+			result=st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBUtil.dbDisconnect(conn, st, rs);
+		}		
+		return result;
 	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../common/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <body>
 	<h1>직원의 상세정보보기(수정 가능)</h1>
 	<!-- 부서선택, 매니저선택, 직책선택 -->
-	<form action="empDetail" method="post">
+	<form action="${path}/emp/empDetail.do" method="post">
 		<div class="mb-3 mt-3">
 			<label for="employee_id">employee_id:</label> <input type="number"
 				class="form-control" id="employee_id"
@@ -44,14 +45,14 @@
 			<input type="date" class="form-control" name="hire_date"
 				placeholder="Enter hire_date" value="${empInfo.hire_date}">
 		</div>
-		<%-- <div class="mb-3 mt-3">
+		<div class="mb-3 mt-3">
 			<label for="job_id">job_id:</label> <select name="job_id">
 				<c:forEach items="${joblist}" var="job">
 					<option value="${job.job_id}"
 						${empInfo.job_id==job.job_id?"selected":""}>${job.job_id}/${job.job_title}</option>
 				</c:forEach>
 			</select>
-		</div> --%>
+		</div>
 		<div class="mb-3 mt-3">
 			<label for="salary">salary:</label> <input type="number"
 				class="form-control" id="salary" placeholder="Enter salary"

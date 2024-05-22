@@ -1,8 +1,8 @@
-package com.shinhan.myapp.model;
+package com.shinhan.myapp.board;
 
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class MyService {
+public class MyComponent {
 
 }

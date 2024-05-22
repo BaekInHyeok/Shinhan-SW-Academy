@@ -19,8 +19,8 @@ public class EmpDTO {
 	private String phone_number;
 	private Date hire_date;
 	private String job_id;
-	private int salary;
-	private double commission_pct;
-	private int manager_id;
-	private int department_id;
+	private Integer salary;
+	private Double commission_pct;
+	private Integer manager_id;
+	private Integer department_id;
 }

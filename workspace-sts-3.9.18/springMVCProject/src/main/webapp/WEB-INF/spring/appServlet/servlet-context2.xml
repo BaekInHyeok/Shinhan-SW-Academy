@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<context:component-scan
-		base-package="com.shinhan.myapp,org.firstzone"/>
+		base-package="com.shinhan.myapp,org.firstzone" />
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -17,7 +17,8 @@
 		<property name="fileEncoding" value="UTF-8" />
 	</bean>
 
-	<jee:jndi-lookup id="dataSource3" jndi-name="jdbc/myoracle"   resource-ref="true" />
+	<jee:jndi-lookup id="dataSource3"
+		jndi-name="jdbc/myoracle" resource-ref="true" />
 
 
 	<bean id="dataSource2"
@@ -38,4 +39,19 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:mybatis/SqlMapConfig.xml" />
+		<property name="mapperLocations"
+			value="classpath:mybatis/mappers/*Mapper.xml" />
+	</bean>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
 </beans>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../common/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +54,7 @@
 					<td>${emp.manager_id}</td>
 					<td>${emp.commission_pct}</td>
 					<td><fmt:formatDate value="${emp.hire_date}" pattern="YYYY/MM/dd hh:mm:ss"/></td>
-					<td><button onclick="location.href='empdelete.do?empid=${emp.employee_id}'">삭제</button>
+					<td><button onclick="location.href='${path}/emp/empDelete.do?empid=${emp.employee_id}'">삭제</button>
 				</tr>
 			</c:forEach>
 		</tbody>

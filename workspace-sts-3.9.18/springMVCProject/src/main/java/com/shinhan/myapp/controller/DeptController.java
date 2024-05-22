@@ -51,7 +51,7 @@ public class DeptController {
 	public ModelAndView insertView() {
 
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("mlist", eService.selectAllManger());
+		mv.addObject("mlist", eService.selectAllManager());
 		mv.setViewName("dept/deptInsert");
 
 		// redirect가 없으면 default로 forward된다. 즉, 요청의 주소는 그대로이고 보여지는 page는 jsp이다.
@@ -96,7 +96,7 @@ public class DeptController {
 		System.out.println(dept);
 		// model.addAttribute("dept", dept);
 
-		model.addAttribute("mlist", eService.selectAllManger());
+		model.addAttribute("mlist", eService.selectAllManager());
 		return "dept/deptUpdate_DB";
 	}
 

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 import com.shinhan.myapp.util.DBUtil;
 
 @Repository
-public class DepDAO {
+public class DepDAO implements DeptDAOInterface{
 
 	@Autowired
 	@Qualifier("dataSource")
@@ -73,27 +73,41 @@ public class DepDAO {
 
 		return dep;
 	}
-
-	// 3.ë§¤ë‹ˆ?? IDë¡? ë¶??„œ ê²??ƒ‰
-	public DepDTO selectByMId(int mId) {
-		DepDTO dep = null;
-		String sql = "select *from departments where manager_id=" + mId;
+	public List<DepDTO> selectByName(String DepName){
+		
+		List<DepDTO> deplist = new ArrayList<DepDTO>();
+		
+		String sql = "select * from departments where department_name like " + DepName;
 		
 		try {
 			conn = ds.getConnection();
-			st= conn.createStatement();
+			st = conn.createStatement();
 			rs = st.executeQuery(sql);
-
+			
 			if (rs.next()) {
-				dep = makeDep(rs);
+				DepDTO dep = makeDep(rs);
+				deplist.add(dep);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return dep;
+		
+		return deplist;
 	}
+
+	/*
+	 * public DepDTO selectByMId(int mId) { DepDTO dep =
+	 * null; String sql = "select *from departments where manager_id=" + mId;
+	 * 
+	 * try { conn = ds.getConnection(); st= conn.createStatement(); rs =
+	 * st.executeQuery(sql);
+	 * 
+	 * if (rs.next()) { dep = makeDep(rs); } } catch (SQLException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * return dep; }
+	 */
 
 	// 4.?ž…? ¥(insert)
 	public int depInsert(DepDTO dep) {

@@ -1,4 +1,4 @@
-package com.shinhan.myapp.model;
+package com.shinhan.myapp.board;
 
 import java.sql.Date;
 

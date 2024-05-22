@@ -1,4 +1,4 @@
-package com.shinhan.myapp.model;
+package com.shinhan.myapp.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 public class BoardService {
 	//BoardDAO boardDAO = new BoardDAO();
 	
+	//****2.적용하기
 	@Autowired
+	//생략 가능 : @Qualifier("bDAO")
 	BoardDAO boardDAO;
 	
 	public int deleteBoard(int bno) {
@@ -38,5 +41,10 @@ public class BoardService {
 	
 	public List<BoardDTO> selectAll() {
 		return boardDAO.selectAll();
+	}
+
+	public int deleteBoardArray(Integer[] checkBno) {
+		// TODO Auto-generated method stub
+		return boardDAO.deleteBoardArray(checkBno);
 	}
 }

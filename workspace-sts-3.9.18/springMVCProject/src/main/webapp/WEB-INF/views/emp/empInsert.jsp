@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../common/header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,12 +16,14 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../static/js/jquery-3.7.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script>
-	$(function() {
+	$(function(){
 		$("form").on("submit", call);
-		$("#btnDupCheck").on("click", f_dupCheck);
+		$("#btnDupChk").on("click", f_dupCheck);
 	});
+	
 	function f_dupCheck() {
 		var empid = $("#employee_id").val();
 		if (empid == "") {
@@ -30,17 +33,18 @@
 		}
 		$.ajax({
 			url : "${path}/emp/empIdCheck.do",
-			data : {
-				"empid" : empid
-			},
+			data : {"empid" : empid},
 			type : "get",
 			success : function(responseData) {
 				var message = "";
 				if (responseData == "0") {
 					message = "사용가능";
+					alert("사용가능");
+					
 				} else {
 					message = "사용불가능";
 					$("#employee_id").val("");
+					alert("사용불가");
 					document.querySelector("#employee_id").focus();
 				}
 				$("#resultMessage").val(message);
@@ -62,7 +66,7 @@
 </script>
 </head>
 <body>
-	<c:set var="path" value="${pageContext.servletContext.contextPath}"></c:set>
+	<%-- <c:set var="path" value="${pageContext.servletContext.contextPath}"></c:set> --%>
 
 	<div class="container mt-3">
 		${path} <a href="empList.do">직원리스트</a>
@@ -72,9 +76,9 @@
 				<label for="employee_id">직원번호:</label> <input type="number"
 					class="form-control" id="employee_id"
 					placeholder="Enter Employee ID" name="employee_id"
-					required="required"> <input type="button" value="중복체크"
-					id="btnDupChk"> <input type="text" placeholder="ID입력후 중복체크"
-					id="resultMessage">
+					required="required">
+					<input type="button" value="중복체크" name="btnDupChk" id="btnDupChk">
+					<input type="text" placeholder="ID입력후 중복체크" id="resultMessage" name="resultMessage">
 			</div>
 			<div class="mb-3 mt-3">
 				<label for="first_name">이름:</label> <input type="text"

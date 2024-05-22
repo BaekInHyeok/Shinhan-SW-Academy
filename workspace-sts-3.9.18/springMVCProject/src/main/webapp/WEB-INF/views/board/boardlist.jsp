@@ -1,19 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../common/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+setTimeout(() => {
+	var message="${resultMessage}";
+	if(message!="")alert(message);
+}, 500);
+</script>
 </head>
-<c:set var="path" value="${pageContext.servletContext.contextPath}"/>
 <a href="${path}/board/boardinsert.do">게시글 등록</a>
+<hr>
 <body>
 	&lt;
 	<c:out value="&lt" escapeXml="true"></c:out>
 	<c:out value="&lt" escapeXml="false"></c:out>
-	<script src = "${cpath}/static/js/jquery-3.7.1.min.js"></script>
+	<script src="${cpath}/static/js/jquery-3.7.1.min.js"></script>
 	<script>
 		$(function(){
 			$("#btnJSON").on("click",f_jsonCall);
@@ -67,37 +74,40 @@
 		}
 		
 	</script>
-	
-	<button id="btnJSON">JSON보내기</button>
-	<button id="btnJSON2">JSON받기</button>
-	<div id="here">여기</div>
 
-	<a href="${path}/boardInsert.do">게시판 등록</a>
 	<h1>Board목록</h1>
-	<table border="1">
-		<tr>
-			<th>bno</th>
-			<th>title</th>
-			<th>content</th>
-			<th>writer</th>
-			<th>pic</th>
-			<th>작성일</th>
-		</tr>
-
-		<c:forEach items="${blist}" var="board">
+	<form action="${path}/board/selectDelete.do">
+		<table border="1">
 			<tr>
-				<td><a href="${path}/board/boardDetail.do?bno=${board.bno}">${board.bno}</a></td>
-				<td>${board.title }</td>
-				<td>${board.content }</td>
-				<td>${board.writer }</td>
-				<td><img alt="${board.title}" width="50" height="50"
-					src="${cpath}/static/images/${board.pic}" />
-					<a href="${cpath}/download.do?filename=${board.pic}">다운로드</a>
-				</td>
-				<td>${board.create_date }</td>
-				<td><button onclick="location.href='${path}/board/boardDelete.do?bno=${board.bno}'">삭제</button></td>
+				<th>bno</th>
+				<th>title</th>
+				<th>content</th>
+				<th>writer</th>
+				<th>pic</th>
+				<th>작성일</th>
 			</tr>
-		</c:forEach>
-	</table>
+
+			<c:forEach items="${blist}" var="board">
+				<tr>
+					<td>
+					<input type="checkbox" name="checkBno" value="${board.bno}"></td>
+					<td><a href="${path}/board/boardDetail.do?bno=${board.bno}">${board.bno}</a></td>
+					<td>${board.title }</td>
+					<td>${board.content }</td>
+					<td>${board.writer }</td>
+					<td><img alt="${board.title}" width="50" height="50"
+						src="${cpath}/static/images/${board.pic}" /> <a
+						href="${cpath}/download.do?filename=${board.pic}">다운로드</a></td>
+					<td>${board.create_date }</td>
+					<td><input type="button" value="삭제" onclick="location.href='${path}/board/boardDelete.do?bno=${board.bno}'"></button></td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+		<input type="submit" value="선택 항목 삭제">
+	</form>
 </body>
 </html>
+<!-- 
+form 태그 내의 <button>은 submit으로 수행한다.
+ -->
