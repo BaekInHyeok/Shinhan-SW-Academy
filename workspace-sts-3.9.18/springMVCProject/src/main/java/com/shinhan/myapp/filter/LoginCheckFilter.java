@@ -30,6 +30,12 @@ public class LoginCheckFilter implements Filter {
 		HttpSession session = req.getSession();
 		
 		if(!req.getRequestURI().endsWith("login.do")) {
+			
+			System.out.println("getRequestURI:"+req.getRequestURI());
+			System.out.println("getRequestURL:"+req.getRequestURL());
+			System.out.println("getPathInfo:"+req.getPathInfo());
+			
+			
 			session.setAttribute("lastRequest", req.getRequestURI());
 			EmpDTO emp = (EmpDTO) session.getAttribute("emp");
 			if(emp==null) {

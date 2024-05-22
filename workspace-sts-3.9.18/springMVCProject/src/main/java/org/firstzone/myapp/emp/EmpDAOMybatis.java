@@ -36,37 +36,42 @@ public class EmpDAOMybatis implements EmpDAOInterface{
 
 	public EmpDTO loginChk(String email, String phone) {
 		EmpDTO emp = sqlSession.selectOne(namespace + "loginChk", email);
-		logger.info(emp.toString());
 		return emp;
 	}
 
 	public int selectByEmail(String email) {
 		Integer result = sqlSession.selectOne(namespace+"selectByEmail", email);
+		logger.info(result.toString());
 		return result;
 	}
 
 	public List<HashMap<String, Object>> selectAllManager() {
 		List<HashMap<String, Object>> mlist = sqlSession.selectList(namespace+"selectAllManager");
+		logger.info(mlist.toString());
 		return mlist;
 	}
 
 	public List<EmpDTO> selectAll() {
 		List<EmpDTO> emplist = sqlSession.selectList(namespace+"selectAll");
+		logger.info(emplist.toString());
 		return emplist;
 	}
 
 	public List<JobDTO> selectAllJob() {
 		List<JobDTO> joblist = sqlSession.selectList(namespace+"selectAllJob");
+		logger.info(joblist.toString());
 		return joblist;
 	}
 
 	public EmpDTO selectById(int empId){
 		EmpDTO emp = sqlSession.selectOne(namespace+"selectById", empId);
+		
 		return emp;
 	}
 
 	public List<EmpDTO> selectByDepId(int depid) {
 		List<EmpDTO> empList = sqlSession.selectList(namespace+"selectByDepId", depid);
+		logger.info(empList.toString());
 		return empList;
 	}
 

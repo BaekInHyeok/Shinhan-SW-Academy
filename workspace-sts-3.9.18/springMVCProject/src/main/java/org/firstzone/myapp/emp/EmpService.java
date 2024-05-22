@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 //Service
 @Service
-public class EmpService {
+public class EmpService implements EmpDAOInterface{
 
 	//타입이 같으면 자동으로 인젝션
 	@Autowired
@@ -38,7 +38,7 @@ public class EmpService {
 		return empDAO.selectAll();
 	}
 
-	public EmpDTO selectById(int empId) throws ClassNotFoundException, SQLException {
+	public EmpDTO selectById(int empId){
 
 		return empDAO.selectById(empId);
 	}

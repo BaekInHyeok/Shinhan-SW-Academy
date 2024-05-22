@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 
 import org.firstzone.myapp.emp.EmpDTO;
 import org.firstzone.myapp.emp.EmpService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,14 @@ public class LoginController {
 	@Autowired
 	EmpService eService;
 	
+	Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
 	@GetMapping("/login.do")
 	public void loginDisplay() {
-		
+		logger.debug("login.do 夸没(debug)");
+		logger.info("login.do 夸没(info)");
+		logger.warn("login.do 夸没(warn)");
+		logger.error("login.do 夸没(error)");
 	}
 	
 	@PostMapping("/login.do")

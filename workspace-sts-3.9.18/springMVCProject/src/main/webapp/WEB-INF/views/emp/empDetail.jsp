@@ -65,7 +65,9 @@
 				value="${empInfo.commission_pct}">
 		</div>
 		<div class="mb-3 mt-3">
-			<label for="manager_id">manager_id:</label> <select name="manager_id">
+			<label for="manager_id">manager_id:</label> 
+			<select name="manager_id" id="manager_id">
+				<option value="0">매니저없음</option>
 				<c:forEach items="${mlist}" var="manager">
 					<option value="${manager.employee_id}"
 						${empInfo.manager_id==manager.employee_id?"selected":""}>${manager.employee_id}/${manager.fullname}</option>
@@ -73,8 +75,9 @@
 			</select>
 		</div>
 		<div class="mb-3 mt-3">
-			<label for="department_id">department_id:</label> <select
-				name="department_id">
+			<label for="department_id">department_id:</label> 
+			<select name="department_id" id="department_id">
+				<option value="0">부서없음</option>
 				<c:forEach items="${deptlist}" var="dept">
 					<option value="${dept.department_id}"
 						${empInfo.department_id==dept.department_id?"selected":""}>${dept.department_id}/${dept.department_name}</option>
