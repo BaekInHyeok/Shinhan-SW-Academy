@@ -34,9 +34,12 @@ public class LoginCheckFilter implements Filter {
 			System.out.println("getRequestURI:"+req.getRequestURI());
 			System.out.println("getRequestURL:"+req.getRequestURL());
 			System.out.println("getPathInfo:"+req.getPathInfo());
+			System.out.println("getQueryStriing:"+req.getQueryString());
 			
 			
 			session.setAttribute("lastRequest", req.getRequestURI());
+			session.setAttribute("queryString", req.getQueryString());
+			
 			EmpDTO emp = (EmpDTO) session.getAttribute("emp");
 			if(emp==null) {
 				String path = req.getContextPath();

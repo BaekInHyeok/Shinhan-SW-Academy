@@ -36,6 +36,8 @@ public class EmpDAOMybatis implements EmpDAOInterface{
 
 	public EmpDTO loginChk(String email, String phone) {
 		EmpDTO emp = sqlSession.selectOne(namespace + "loginChk", email);
+		
+		logger.info(emp==null?"존재하지 않는 직원":emp.toString());
 		return emp;
 	}
 

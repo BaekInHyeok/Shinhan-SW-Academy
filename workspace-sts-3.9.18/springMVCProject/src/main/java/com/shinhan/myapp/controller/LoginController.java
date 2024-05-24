@@ -33,9 +33,11 @@ public class LoginController {
 	
 	@PostMapping("/login.do")
 	public String loginCheck(@RequestParam("email") String email, @RequestParam("pswd") String phone, HttpSession session, HttpServletRequest request) {
+		
+		//mybatis로 변경함(null이거나 JDBC에서 -1: 존재하지 않는 ID JDBC에서 -2 : password오류)
 		EmpDTO emp = eService.loginChk(email, phone);
 		
-		if(emp.getEmployee_id()==-1) {
+		if(emp==null||emp.getEmployee_id()==-1) {
 			session.setAttribute("loginResult", "존재하지 않는 ID");
 			return "redirect:login.do";
 		}else if(emp.getEmployee_id()==-2) {
@@ -47,7 +49,10 @@ public class LoginController {
 			session.setAttribute("emp", emp);
 			
 			String lastRequest = (String)session.getAttribute("lastRequest");
+			
+			
 			System.out.println(lastRequest);
+			
 			String goPage;
 			
 			if(lastRequest==null) {
@@ -57,6 +62,9 @@ public class LoginController {
 				//로그인 없이 다른 페이지를 요청한 경우
 				int length = request.getContextPath().length();
 				goPage=lastRequest.substring(length);
+				String queryString = (String)session.getAttribute("queryString");
+				if(queryString!=null)
+					System.out.println(queryString);
 			}
 			return "redirect:"+goPage;
 		}
