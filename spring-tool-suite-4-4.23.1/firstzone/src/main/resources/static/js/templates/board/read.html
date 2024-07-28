@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block
+		th:replace="~{/layout/basic :: setContent( ~{this::content2} )}">
+		<th:block th:fragment="content2">
+			<h1>Board 상세</h1>
+			 
+			 <div class="form-group">
+			     <label>bno</label>
+			     <input type="text" class="form-control" name="bno" th:value="${dto.bno}" readonly="readonly"/>
+			   </div>
+			   <div class="form-group">
+			     <label>제목</label>
+			     <input type="text" class="form-control" name="title" th:value="${dto.title}" readonly/>
+			   </div>
+			   <div class="form-group">
+			     <label>내용</label>
+			     <textarea name="content" class="form-control" rows="5" cols="20" readonly>[[${dto.content}]]</textarea>
+			   </div>
+			   <div class="form-group">
+			     <label>작성자</label>
+			     <input type="text" class="form-control" name="writerEmail" th:value="${dto.writerEmail}" readonly/>
+			   </div>
+			   <div class="form-group">
+			     <label>작성일</label>
+			     <input type="date" class="form-control" name="regDate" 
+			               th:value="${#temporals.format(dto.regDate,'yyyy-MM-dd')}" readonly/>
+			   </div>
+			   <div class="form-group">
+			     <label>수정일</label>
+			     <input type="date" class="form-control" name="modDate" 
+			               th:value="${#temporals.format(dto.modDate,'yyyy-MM-dd')}" readonly/>
+			   </div>
+			   
+ 
+			   
+			   
+			   <a th:href="@{/board/modify(bno=${dto.bno},page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}">
+			     <button type="button" class="btn btn-primary">Modify</button>
+			   </a>
+			   <a th:href="@{/board/list(page=${pageRequestDTO.page},size=${pageRequestDTO.size},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}">
+			     <button type="button" class="btn btn-primary">List</button>
+			   </a>
+			   <!-- 댓글부분 추가 -->
+			   <div>
+			     <div class="mt-4">
+			     <h5><button type="button" class="btn btn-primary">
+			         <span class="badge badge-secondary addReply">Add  Reply</span>
+			         </button>
+			       </h5>
+			       <h5><button type="button" class="btn btn-primary">
+			         <span class="badge badge-secondary replyCount">Reply Count : [[${dto.replyCount}]]</span>
+			         </button>
+			       </h5>
+			     </div>
+			     <div class="list-group replyList">
+			     
+			     </div>
+			   </div>
+			   
+			   <!-- 
+			    Modal
+			    -->
+			   <div class="modal" tabindex="-1" role="dialog">
+                 <div class="modal-dialog" role="document">
+                   <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                          !!!<input class="form-control" type="text" name="replyText" placeholder="댓글"/>
+                          작성자:<input class="form-control" type="text" name="replyer"  value="user1@gmail.com"/>
+                          <input  type="text" name="rno" value="" >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <button type="button" class="btn btn-warning repltModify">수정</button>
+                        <button type="button" class="btn btn-primary replySave">입력</button>
+                        <button type="button" class="btn btn-danger replyRemove">삭제</button>
+                        <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+			   
+			   
+			   
+			   <script th:inline="javascript">
+			     var bno = /*[[${dto.bno}]]*/"";
+			     $(function(){
+			    	 $(".replyCount").click(loadJSONData);
+			    	 $(".addReply").click(showModal);
+			    	 $("[data-dismiss]").click(hideModal);
+			    	 $(".replySave").click(f_replyInsert);
+			    	 $(".repltModify").click(f_replyModify);
+			    	 $(".replyList").on("click", ".card-body", f_replyModifyDB);
+			    	 
+			    	 
+			     });
+			     function f_replyModifyDB(){
+			    	 var rno = $("input[name='rno']").val();
+			    	 var replyText = $("input[name='replyText']").val();
+			    	 var replyer = $("input[name='replyer']").val();
+			    	 
+			    	 var reply = {bno:bno, rno:rno, text:replyText, replyer:replyer} ;
+			    	 $.ajax({
+			    		 url:"/board/modify/"+rno,
+			    		 method:"put",
+			    		 data:JSON.stringify(reply),
+			    		 contentType:"application/json;charset=utf-8",
+			    		 success:function(result){
+			    			 console.log(result);
+			    			 if(result ==='success'){
+			    				 alert("댓글수정됨");
+			    				 loadJSONData();
+			    			 }
+			    		 }
+			    	 });
+			     }
+			     function f_replyModify(){
+			    	 var rno = $(this).data("rno");
+			    	 $("input[name='rno']").val(rno);
+			    	 $("input[name='replyText']").val($(this).find(".card-title").html());
+			    	 $("input[name='replyer']").val($(this).find(".card-subtitle").html());
+			    	 $(".modal-footer .btn" ).hide();
+			    	 $(".replyRemove, .repltModify, .replyClose").show();
+			    	 
+			    	 
+			     }
+			     function f_replyInsert(){
+			    	 console.log("insert");
+			    	 var reply = {bno:bno, text:$("input[name='replyText']").val(), replyer:$("input[name='replyer']").val()};
+			    	 console.log(reply);
+			         $.ajax({
+			        	 url:"/replies/add",  
+			        	 method:"post",
+			        	 data: JSON.stringify(reply),
+			        	 contentType:"application/json;charset=utf-8",
+			        	 dataType:"json",
+			        	 success:function(data){
+			        		 console.log(data);
+			        		 var newRno = parseInt(data);
+			        		 alert(newRno + "번 댓글이 등록되었습니다.");
+			        		 $(".modal").modal("hide");
+			        		 loadJSONData();
+			        	 }
+			         });
+			     } 
+			     function showModal(){
+			    	 $(".modal").show();
+			    	 $("input[name='replyText']").val("");
+			    	 $("input[name='replyer']").val("");
+			    	 $(".modal-footer .btn" ).hide();
+			    	 $(".replySave, .replyClose").show();
+			     }
+			     function hideModal(){
+			    	 $(".modal").hide();
+			     }
+			     function formatTime(str){
+		    		 var date = new Date(str);
+		    		 return date.getFullYear() + "/" + (date.getMonth()+1)+"/" + date.getDate() + " " + date.getHours()+":" + date.getMinutes();
+		    	 }
+			     function loadJSONData(){
+			    	 $.getJSON("/replies/board/" + bno , function(arr){
+			    		 console.log(arr);
+			    		 $(".replyCount").html("Reply Count :" + arr.length );
+			    		 var str = "";
+			    		 
+			    		 $.each(arr, function(index, reply){
+			    			 var dt = formatTime(reply.regDate);
+			    			 str += `
+			    				 <div class='card-body data-rno=${reply.rno}'>
+			    				   <b>${reply.rno}</b>
+			    				   <h5 class='card-title'>${reply.text}</h5>
+			    				   <h5 class='card-subtitle mb-2 text-muted'>${reply.replyer}</h5>
+			    				   <p class='card-text mb-2 text-muted'> ${dt} </p>
+			    				 </div>
+			    			 `;
+			    			 
+			    			  
+			    		 });
+			    		 var listGroup = $(".replyList");
+			    		 listGroup.html(str);
+			    	 });
+			     }
+			   </script>
+		</th:block>
+		 
+	</th:block>
+
+
+
+</body>
+</html>

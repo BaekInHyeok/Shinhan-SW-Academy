@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>fragment test</h1>
+<h1>fragment1</h1>
+<div th:replace="~{fragments/fragment2}"></div>
+<hr/>
+<h1>fragment2</h1>
+<div th:insert="~{fragments/fragment1::part2}"></div>
+<hr/>
+<h1>fragment3</h1>
+<th:block  th:replace="~{fragments/fragment1::part3}"></th:block>
+
+
+<th:block th:replace="~{fragments/fragment3::target(~{this::#ulfirst},~{this::#ulsecond})}">
+
+
+<ul id="ulfirst">
+  <li>A</li>
+  <li>A</li>
+  <li>A</li>
+  <li>A</li>
+  <li>A</li>
+</ul>
+
+<ul id="ulsecond">
+  <li>B</li>
+  <li>B</li>
+  <li>B</li>
+  <li>B</li>
+ 
+</ul>
+
+</th:block>
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>hello1.html파일입니다.</h1>
+<p th:text=${today}></p>
+<ul>
+ <li th:each="car:${carlist}">[[${car}]]</li>
+</ul>
+
+<ul>
+ <th:block th:each="car:${carlist}">
+   <li>
+      <!-- 오류 -->
+      <!--  <a href="/hello2/${car.carId}">[[${car.model}]]</a> -->
+      <!-- 파라메터 -->
+       <a  th:href="@{/hello2(carno=${car.carId})}">[[${car.model}]]</a>
+       <!-- path -->
+       <a th:href="@{/hello3/{carno}(carno=${car.carId})}">[[${car.model}]]</a>
+   </li>
+ </th:block>
+</ul>
+
+<ul>
+ <th:block th:each="car:${carlist}">
+   <li th:text="${car.model}"></li>
+ </th:block>
+</ul>
+
+</body>
+</html>

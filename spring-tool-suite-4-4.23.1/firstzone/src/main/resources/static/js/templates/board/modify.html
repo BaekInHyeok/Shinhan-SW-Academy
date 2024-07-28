@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<th:block
+		th:replace="~{/layout/basic :: setContent( ~{this::content2} )}">
+		<th:block th:fragment="content2">
+		<h1>Board 상세</h1>
+		<form action="/board/modify" method="post">
+		     <input type="hidden" name="page" th:value="${pageRequestDTO.page}"/>
+		     <input type="hidden" name="type" th:value="${pageRequestDTO.type}"/>
+		     <input type="hidden" name="keyword" th:value="${pageRequestDTO.keyword}"/>
+			 <div class="form-group">
+			     <label>bno</label>
+			     <input type="text" class="form-control" name="bno" th:value="${dto.bno}"/>
+			   </div>
+			   <div class="form-group">
+			     <label>제목</label>
+			     <input type="text" class="form-control" name="title" th:value="${dto.title}"/>
+			   </div>
+			   <div class="form-group">
+			     <label>내용</label>
+			     <textarea name="content" class="form-control" rows="5" cols="20">[[${dto.content}]]</textarea>
+			   </div>
+			   <div class="form-group">
+			     <label>작성자</label>
+			     <input type="text" class="form-control" name="writerEmail" th:value="${dto.writerEmail}"/>
+			   </div>
+		   </form> 
+		   <button type="button" class="btn btn-primary modifyBtn">수정</button>
+		   <button type="button" class="btn btn-info listBtn">목록</button>
+		   <button type="button" class="btn btn-danger removeBtn">삭제</button>
+		   <script th:inline="javascript">
+		       var actionForm = $("form");
+		       $(".removeBtn").click(function(){
+		    	   actionForm.attr("action", "/board/remove")
+		    	             .attr("method", "post");
+		    	   actionForm.submit();
+		       });
+		       $(".modifyBtn").click(function(){
+		    	   if(!confirm("수정?")){ return; }
+		    	   actionForm.attr("action", "/board/modify")
+  	             			 .attr("method", "post");
+  	   				actionForm.submit();
+		    	   
+		       });
+		       $(".listBtn").click(function(){
+		    	   var page = $("input[name='page']");
+		    	   var type = $("input[name='type']");
+		    	   var keyword = $("input[name='keyword']");
+		    	   actionForm.empty();
+		    	   actionForm.append(page);
+		    	   actionForm.append(type);
+		    	   actionForm.append(keyword);
+		    	   actionForm.attr("action","/board/list")
+  	             			  .attr("method", "get");
+  	   			actionForm.submit();
+		       });
+		       
+		   </script>
+		</th:block>
+	</th:block>
+
+
+
+</body>
+</html>
+
+
+
