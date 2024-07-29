@@ -19,7 +19,7 @@ import com.shinhan.firstzone.repository3.FreeBoardRepository;
 import com.shinhan.firstzone.repository3.FreeReplyRepository;
 import com.shinhan.firstzone.vo3.FreeBoardEntity;
 import com.shinhan.firstzone.vo3.FreeReplyEntity;
-import com.shinhan.firstzone.vo3.QFreeBoardEntity;
+
 
 import jakarta.transaction.Transactional;
 

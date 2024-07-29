@@ -8,6 +8,11 @@
 	<th:block
 		th:replace="~{/layout/basicLayout :: setContent(~{this::content2} )}">
 		<th:block th:fragment="content2">
+
+			<input type="text" id="_csrf" name="_csrf" th:value="${_csrf.token}" />
+			<input type="text" id="_csrf_header" name="_csrf_header"
+				th:value="${_csrf.headerName}" />
+
 			<h1>게시글 등록</h1>
 			<form th:action="@{/webboard/modify}" th:method="post">
 				<div class="form-group">
@@ -100,6 +105,20 @@
 				$(".repltModify").on("click",f_replyModifyDB);
 				$(".replyRemove").on("click",f_replyDelete);
 				
+				var token = $("input[name='_csrf']").val();
+				var header = $("input[name='_csrf_header']").val();
+				var beforeSend = function(xhr){ 
+					xhr.setRequestHeader(header, token);
+				}
+				  
+				function ajax_send(){
+					if(token && header) {
+						$(document).ajaxSend(function(event, xhr, options) {
+						 	 xhr.setRequestHeader(header, token);
+						});
+					}
+				}
+				
 				
 				
 				function f_replyDelete(){
@@ -185,12 +204,12 @@
 				function f_insertReply(){
 					var reply = $('input[name="replyText"]').val();
 					var replyer = $('input[name="replyer"]').val();
-					var replyDTO = {reply,replyer, boardBno};//{boardBno:boardBno} =>{boardBno}
+					var replyDTO = {reply,replyer,boardBno};//{boardBno:boardBno} =>{boardBno}
 					$.ajax({
 						url:"/replies/register",
 						method:"post",
 						data:JSON.stringify(replyDTO),
-						contentType:"application/json;charset=utf-8",//보내는 data
+						contentType:"application/json",//보내는 data
 						success:function(responseData){
 							alert(responseData+"번 댓글 등록됨");
 							f_closeModal();//modal 닫기

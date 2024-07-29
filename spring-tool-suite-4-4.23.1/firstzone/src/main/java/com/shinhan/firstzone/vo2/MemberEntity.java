@@ -17,12 +17,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class MemberEntity {
-
+	
 	@Id //Primary Key
 	String mid;
 	String mpassword;
 	String mname;
-	@Enumerated(EnumType.STRING) //기본은 순서orinal이 입력됨 
-	MemberRole mrole;  
+	@Enumerated(EnumType.STRING) //기본은 순서 ordinal이 입력됨. Enum 문자타입
+	MemberRole mrole; 
+	//USER, MANAGER, ADMIN 권한이 3개 뿐이라 Enum으로 만듦(MemberRole.java)
 	
+	//EnumType.Original : enum 순서(숫자)값을 DB에 저장
+	//EnmType.STRING : enum이름 값을 DB에 저장
 }

@@ -33,7 +33,7 @@ public class ProfileDTO {
 	//false:0  true:1
 	
 	@ManyToOne
-	private MemberDTO member; //member_mid칼럼이 DB생성된다. 
+	private MemberEntity member; //member_mid칼럼이 DB생성된다. 
 	
 	//직원, 부서 
 	//직원이 부서를 참조한다. 

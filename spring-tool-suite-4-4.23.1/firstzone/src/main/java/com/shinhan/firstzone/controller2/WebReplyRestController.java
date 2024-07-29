@@ -23,9 +23,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/replies")
 @RequiredArgsConstructor	//final인 field들 @Autowired
+@Tag(name="댓글", description="여기에서는 WebReply CRUD 작성됨")
 public class WebReplyRestController {
 	final WebReplyService replyService;
 	
+	
+	@Tag
 	@GetMapping("/list/{bno}")
 	List<WebReplyDTO> list(@PathVariable("bno") Long bno) {
 		return replyService.getList(bno);
